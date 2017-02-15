@@ -1,0 +1,10 @@
+ÿ%                                                                                                                                                                                   test                                                                                                                                                                                                                                            ÿ%                                                                                                                                                                                   test\_%                                                                                                                                                                                                                                         2015-09-26 20:34:26 16180 [Note] Event Scheduler: Loaded 0 events
+2015-09-26 20:34:26 16180 [Note] C:\Users\Helz\Desktop\easyphp\EASYPH~1.1VC\binaries\mysql\bin\eds-mysqld.exe: ready for connections.
+Version: '5.6.15-log'  socket: ''  port: 3306  MySQL Community Server (GPL)
+2015-09-26 20:38:11 16180 [Note] C:\Users\Helz\Desktop\easyphp\EASYPH~1.1VC\binaries\mysql\bin\eds-mysqld.exe: Normal shutdown
+
+2015-09-26 20:38:11 16180 [Note] Giving 1 client threads a chance to die gracefully
+2015-09-26 20:38:11 16180 [Note] Event Scheduler: Purging the queue. 0 events
+2015-09-26 20:38:11 16180 [Note] Shutting down slave threads
+2015-09-26 20:38:13 16180 [Note] Forcefully disconnecting 1 remaining clients
+2015-09-26 20:38:13 16180 [Note] Binlog end
