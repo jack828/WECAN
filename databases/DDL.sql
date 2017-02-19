@@ -59,3 +59,10 @@ CREATE TABLE venueUsage (	ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
                             FOREIGN KEY (cardID) REFERENCES card(ID),
                             FOREIGN KEY (venueID) REFERENCES venue(ID)
                             );
+
+-- relation to store user login accounts (no relationships required)							
+CREATE TABLE accounts ( ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+						username VARCHAR(255),
+						passwd VARCHAR(255),
+						salt VARCHAR(255)
+						);
