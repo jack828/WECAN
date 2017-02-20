@@ -149,4 +149,36 @@ class Main extends CI_Controller {
   public function venues_output($output = null) {
     $this->load->view('venues_view.php', $output);
   }
+
+  public function cards() {
+    $this->load->view('header');
+    $crud = new grocery_CRUD();
+    $crud->set_theme('datatables');
+
+    //table name exact from database
+    $crud->set_table('card');
+
+    //give focus on name used for operations e.g. Add Order, Delete Order
+    $crud->set_subject('Card');
+    $crud->fields('ID', 'competitorID', 'startDate', 'endDate', 'cardStateID');
+
+    $crud->set_relation('competitorID', 'competitor', 'fullName');
+    $crud->set_relation('cardStateID', 'cardState', 'state');
+
+    $crud->required_fields('ID', 'competitorID', 'startDate', 'endDate', 'cardStateID');
+
+    //change column heading name for readability ('columm name', 'name to display in frontend column header')
+    $crud->display_as('ID', 'CardID');
+    $crud->display_as('competitorID', 'Competitor Name');
+    $crud->display_as('startDate', 'Start Date');
+    $crud->display_as('endDate', 'End Date');
+    $crud->display_as('cardStateID', 'Card State');
+
+    $output = $crud->render();
+    $this->cards_output($output);
+  }
+
+  public function cards_output($output = null) {
+    $this->load->view('cards_view.php', $output);
+  }
 }

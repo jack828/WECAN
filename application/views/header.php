@@ -21,6 +21,7 @@
       <li><a class="nav-btn" href='<?php echo site_url('main/teams')?>'>Teams</a></li>
       <li><a class="nav-btn" href='<?php echo site_url('main/competitors')?>'>Competitors</a></li>
       <li><a class="nav-btn" href='<?php echo site_url('main/venues')?>'>Venues</a></li>
+      <li><a class="nav-btn" href='<?php echo site_url('main/cards')?>'>Cards</a></li>
     </ul>
   </div>
 </body>
