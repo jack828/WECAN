@@ -160,7 +160,7 @@ class Main extends CI_Controller {
     $crud->required_fields('ID', 'matchDate', 'venueID', 'team1ID', 'team2ID');
 
     //change column heading name for readability ('columm name', 'name to display in frontend column header')
-    $crud->display_as('ID', 'MatchID');
+    $crud->display_as('ID', 'Match Number');
     $crud->display_as('matchDate', 'Match Date');
     $crud->display_as('venueID', 'Venue');
     $crud->display_as('team1ID', 'Team 1');
@@ -231,7 +231,7 @@ class Main extends CI_Controller {
 
     //change column heading name for readability ('columm name', 'name to display in frontend column header')
     $crud->display_as('ID', 'CompetitorID');
-    $crud->display_as('titleID', 'TitleID');
+    $crud->display_as('titleID', 'Title');
     $crud->display_as('fullName', 'Name');
     $crud->display_as('role', 'Role');
     $crud->display_as('teamID', 'Team Name');
