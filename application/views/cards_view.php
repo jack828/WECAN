@@ -2,11 +2,6 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <style>
-    h1 {
-      text-align: center;
-    }
-  </style>
 <?php
 foreach($css_files as $file): ?>
   <link type="text/css" rel="stylesheet" href="<?php echo $file; ?>" />
@@ -17,7 +12,7 @@ foreach($css_files as $file): ?>
 </head>
 <body>
 
-  <h1>Customers</h1>
+  <h1 class="center">Cards</h1>
   <div>
     <?php echo $output; ?>
   </div>
