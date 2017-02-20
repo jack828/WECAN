@@ -174,7 +174,6 @@ class Main extends CI_Controller {
     $this->load->view('teams_view.php', $output);
   }
 
-
   public function competitors() {
     $this->load->view('header');
     $crud = new grocery_CRUD();
@@ -217,6 +216,29 @@ class Main extends CI_Controller {
 
   public function venues() {
     $this->load->view('header');
-    $this->load->view('venues_view');
+    $crud = new grocery_CRUD();
+    $crud->set_theme('datatables');
+
+    //table name exact from database
+    $crud->set_table('venue');
+
+    //give focus on name used for operations e.g. Add Order, Delete Order
+    $crud->set_subject('Venue');
+    $crud->fields('ID', 'venueName', 'stadium');
+
+    //form validation (could match database columns set to "not null")
+    $crud->required_fields('ID', 'venueName', 'stadium');
+
+    //change column heading name for readability ('columm name', 'name to display in frontend column header')
+    $crud->display_as('ID', 'VenueID');
+    $crud->display_as('venueName', 'venue Name');
+    $crud->display_as('stadium', 'Stadium');
+
+    $output = $crud->render();
+    $this->venues_output($output);
+  }
+
+  public function venues_output($output = null) {
+    $this->load->view('venues_view.php', $output);
   }
 }
