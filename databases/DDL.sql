@@ -21,7 +21,7 @@ CREATE TABLE competitor (	ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 							); 
 
 CREATE TABLE cardState (ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-						state VARCHAR(16);
+						state VARCHAR(16)
                         );
                         
 CREATE TABLE card (	ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
