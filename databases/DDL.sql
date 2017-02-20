@@ -1,9 +1,9 @@
 CREATE TABLE team (	ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-					teamName VARCHAR(128),
-                    nfa VARCHAR(255),
+					teamName VARCHAR(128) NOT NULL,
+                    nfa VARCHAR(255) NOT NULL,
                     acronym VARCHAR(8),
                     nickname VARCHAR(64),
-                    eliminated BOOL
+                    eliminated BOOL NOT NULL DEFAULT FALSE
 					);
 
 CREATE TABLE competitorTitle (	ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -11,31 +11,31 @@ CREATE TABLE competitorTitle (	ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
                                 );
 
 CREATE TABLE competitor (	ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-							fullName VARCHAR(255),
-							role VARCHAR (255),
+							titleID INT NOT NULL,
+							fullName VARCHAR(255) NOT NULL,
+							role VARCHAR (255) NOT NULL,
                             teamID INT NOT NULL,
-                            titleID INT,
-                            authorised BOOL,
+                            authorised BOOL DEFAULT TRUE,
                             FOREIGN KEY (titleID) REFERENCES competitorTitle(ID),
                             FOREIGN KEY (teamID) REFERENCES team(ID)
 							); 
 
 CREATE TABLE cardState (ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-						state VARCHAR(16)
+						state VARCHAR(16);
                         );
                         
 CREATE TABLE card (	ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 					competitorID INT NOT NULL,
                     startDate DATE,
                     endDate DATE,
-                    cardStateID INT NOT NULL,
+                    cardStateID INT NOT NULL DEFAULT 1,
 					FOREIGN KEY (competitorID) REFERENCES competitor(ID),
                     FOREIGN KEY (cardStateID) REFERENCES cardState(ID)
                     );
                     
 CREATE TABLE venue (ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-					venueName VARCHAR(255),
-                    stadium VARCHAR(255)
+					venueName VARCHAR(255) NOT NULL,
+                    stadium VARCHAR(255) NOT NULL
                     );
                     
 -- relation matchAccess provides venue permissions for teams 
@@ -62,7 +62,8 @@ CREATE TABLE venueUsage (	ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 
 -- relation to store user login accounts (no relationships required)							
 CREATE TABLE accounts ( ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-						username VARCHAR(255),
-						passwd VARCHAR(255),
-						salt VARCHAR(255)
+						username VARCHAR(255) NOT NULL,
+						passwd VARCHAR(255) NOT NULL,
+						salt VARCHAR(255) NOT NULL,
+						organisation VARCHAR(255) NOT NULL
 						);
