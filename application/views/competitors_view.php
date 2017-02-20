@@ -14,6 +14,7 @@ foreach($css_files as $file): ?>
 
   <h1 class="center">Competitors</h1>
   <div>
+    <?php echo $output; ?>
   </div>
 </body>
 </html>

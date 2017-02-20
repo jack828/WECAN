@@ -150,7 +150,42 @@ class Main extends CI_Controller {
 
   public function competitors() {
     $this->load->view('header');
-    $this->load->view('competitors_view');
+    $crud = new grocery_CRUD();
+    $crud->set_theme('datatables');
+
+    //table name exact from database
+    $crud->set_table('competitor');
+
+    //give focus on name used for operations e.g. Add Order, Delete Order
+    $crud->set_subject('Competitor');
+    $crud->fields('ID', 'titleID', 'fullName', 'role', 'teamID', 'authorised');
+
+    //set the foreign keys to appear as drop-down menus
+    // ('this fk column','referencing table', 'column in referencing table')
+    $crud->set_relation('teamID', 'team', 'teamName');
+    $crud->set_relation('titleID', 'competitorTitle', 'title');
+
+    //many-to-many relationship with link table see grocery crud website: www.grocerycrud.com/examples/set_a_relation_n_n
+    //('give a new name to related column for list in fields here', 'join table', 'other parent table', 'this fk in join table', 'other fk in join table', 'other parent table's viewable column to see in field')
+    // $crud->set_relation_n_n('items', 'order_items', 'items', 'invoice_no', 'item_id', 'itemDesc');
+
+    //form validation (could match database columns set to "not null")
+    $crud->required_fields('ID', 'titleID', 'fullName', 'role', 'teamID', 'authorised');
+
+    //change column heading name for readability ('columm name', 'name to display in frontend column header')
+    $crud->display_as('ID', 'CompetitorID');
+    $crud->display_as('titleID', 'TitleID');
+    $crud->display_as('fullName', 'Name');
+    $crud->display_as('role', 'Role');
+    $crud->display_as('teamID', 'Team Name');
+    $crud->display_as('authorised', 'Authorised');
+
+    $output = $crud->render();
+    $this->competitors_output($output);
+  }
+
+  public function competitors_output($output = null) {
+    $this->load->view('competitors_view.php', $output);
   }
 
   public function venues() {
