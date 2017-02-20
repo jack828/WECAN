@@ -140,7 +140,38 @@ class Main extends CI_Controller {
 
   public function matches() {
     $this->load->view('header');
-    $this->load->view('matches_view');
+    $crud = new grocery_CRUD();
+    $crud->set_theme('datatables');
+
+    //table name exact from database
+    $crud->set_table('matchAccess');
+
+    //give focus on name used for operations e.g. Add Order, Delete Order
+    $crud->set_subject('Match');
+    $crud->fields('ID', 'matchDate', 'venueID', 'team1ID', 'team2ID');
+
+    //set the foreign keys to appear as drop-down menus
+    // ('this fk column','referencing table', 'column in referencing table')
+    $crud->set_relation('venueID', 'venue', 'venueName');
+    $crud->set_relation('team1ID', 'team', 'teamName');
+    $crud->set_relation('team2ID', 'team', 'teamName');
+
+    //form validation (could match database columns set to "not null")
+    $crud->required_fields('ID', 'matchDate', 'venueID', 'team1ID', 'team2ID');
+
+    //change column heading name for readability ('columm name', 'name to display in frontend column header')
+    $crud->display_as('ID', 'MatchID');
+    $crud->display_as('matchDate', 'Match Date');
+    $crud->display_as('venueID', 'Venue');
+    $crud->display_as('team1ID', 'Team 1');
+    $crud->display_as('team2ID', 'Team 2');
+
+    $output = $crud->render();
+    $this->matches_output($output);
+  }
+
+  public function matches_output($output = null) {
+    $this->load->view('matches_view.php', $output);
   }
 
   public function teams() {
