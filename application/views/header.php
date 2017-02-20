@@ -2,6 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
+  <title>WECAN</title>
   <link rel="stylesheet" type="text/css" href="/WECAN/assets/grocery_crud/css/custom.css">
 </head>
 <body>
