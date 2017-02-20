@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <link rel="stylesheet" type="text/css" href="assets/grocery_crud/css/custom.css">
+  <link rel="stylesheet" type="text/css" href="/WECAN/assets/grocery_crud/css/custom.css">
 </head>
 <body>
   <div>
