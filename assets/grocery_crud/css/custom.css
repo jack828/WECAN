@@ -2,6 +2,10 @@
   font-family: Arial;
 }
 
+.center {
+  text-align: center;
+}
+
 .hr-thick {
   border-top: 2px solid black;
   width: 100%;

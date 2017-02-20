@@ -137,4 +137,24 @@ class Main extends CI_Controller {
 		$this->load->view('header');
 		$this->load->view('blank_view');
 	}
+
+  public function matches() {
+    $this->load->view('header');
+    $this->load->view('matches_view');
+  }
+
+  public function teams() {
+    $this->load->view('header');
+    $this->load->view('teams_view');
+  }
+
+  public function competitors() {
+    $this->load->view('header');
+    $this->load->view('competitors_view');
+  }
+
+  public function venues() {
+    $this->load->view('header');
+    $this->load->view('venues_view');
+  }
 }

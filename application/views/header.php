@@ -16,10 +16,10 @@
     <hr class="hr-thick">
     <ul class="nav">
       <li><a class="nav-btn" href='<?php echo site_url('')?>'>Home</a></li>
-      <li><a class="nav-btn" href='<?php echo site_url('main/orders')?>'>Matches</a></li>
-      <li><a class="nav-btn" href='<?php echo site_url('main/items')?>'>Teams</a></li>
-      <li><a class="nav-btn" href='<?php echo site_url('main/customers')?>'>Competitors</a></li>
-      <li><a class="nav-btn" href='<?php echo site_url('main/orderline')?>'>Venues</a></li>
+      <li><a class="nav-btn" href='<?php echo site_url('main/matches')?>'>Matches</a></li>
+      <li><a class="nav-btn" href='<?php echo site_url('main/teams')?>'>Teams</a></li>
+      <li><a class="nav-btn" href='<?php echo site_url('main/competitors')?>'>Competitors</a></li>
+      <li><a class="nav-btn" href='<?php echo site_url('main/venues')?>'>Venues</a></li>
     </ul>
   </div>
 </body>
