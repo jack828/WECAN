@@ -145,8 +145,35 @@ class Main extends CI_Controller {
 
   public function teams() {
     $this->load->view('header');
-    $this->load->view('teams_view');
+    $crud = new grocery_CRUD();
+    $crud->set_theme('datatables');
+
+    //table name exact from database
+    $crud->set_table('team');
+
+    //give focus on name used for operations e.g. Add Order, Delete Order
+    $crud->set_subject('Team');
+    $crud->fields('ID', 'teamName', 'nfa', 'acronym', 'nickname', 'eliminated');
+
+    //form validation (could match database columns set to "not null")
+    $crud->required_fields('ID', 'teamName', 'nfa', 'acronym', 'nickname', 'eliminated');
+
+    //change column heading name for readability ('columm name', 'name to display in frontend column header')
+    $crud->display_as('ID', 'TeamID');
+    $crud->display_as('teamName', 'Team Name');
+    $crud->display_as('nfa', 'Association');
+    $crud->display_as('acronym', 'Acronym');
+    $crud->display_as('nickname', 'Nickname');
+    $crud->display_as('eliminated', 'Eliminated');
+
+    $output = $crud->render();
+    $this->teams_output($output);
   }
+
+  public function teams_output($output = null) {
+    $this->load->view('teams_view.php', $output);
+  }
+
 
   public function competitors() {
     $this->load->view('header');
