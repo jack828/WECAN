@@ -10,13 +10,13 @@
     <div class="nav-group">
       <h2>WECAN</h2>
       <div class="user-control">
-        <p><?php echo 'Hello $user' ?></p>
-        <a class="nav-btn" href='<?php echo site_url('main/querynav')?>'>Logout</a>
+        <p><?php echo 'Hello ' . $username ?></p>
+        <a class="nav-btn" href='<?php echo site_url('main/logout')?>'>Logout</a>
       </div>
     </div>
     <hr class="hr-thick">
     <ul class="nav">
-      <li><a class="nav-btn" href='<?php echo site_url('')?>'>Home</a></li>
+      <li><a class="nav-btn" href='<?php echo site_url('main')?>'>Home</a></li>
       <li><a class="nav-btn" href='<?php echo site_url('main/matches')?>'>Matches</a></li>
       <li><a class="nav-btn" href='<?php echo site_url('main/teams')?>'>Teams</a></li>
       <li><a class="nav-btn" href='<?php echo site_url('main/competitors')?>'>Competitors</a></li>

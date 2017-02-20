@@ -1,5 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+session_start();
+
 class Main extends CI_Controller {
 
 	function __construct() {
@@ -11,12 +13,38 @@ class Main extends CI_Controller {
 	}
 
 	public function index() {
-		$this->load->view('header');
-		$this->load->view('home');
+    $userData = $this->ensure_logged_in();
+    if (!$userData) {
+      redirect('login', 'refresh');
+    }
+    $this->load->view('header', $userData);
+    $this->load->view('home');
 	}
 
+  function ensure_logged_in() {
+    if($this->session->userdata('logged_in')) {
+      $session_data = $this->session->userdata('logged_in');
+      $data = array();
+      $data['username'] = $session_data['username'];
+
+      return $data;
+    } else {
+      return false;
+    }
+  }
+
+  public function logout() {
+    $this->session->unset_userdata('logged_in');
+    session_destroy();
+    redirect('login', 'refresh');
+  }
+
   public function matches() {
-    $this->load->view('header');
+    $userData = $this->ensure_logged_in();
+    if (!$userData) {
+      redirect('login', 'refresh');
+    }
+    $this->load->view('header', $userData);
     $crud = new grocery_CRUD();
     $crud->set_theme('datatables');
 
@@ -52,7 +80,11 @@ class Main extends CI_Controller {
   }
 
   public function teams() {
-    $this->load->view('header');
+    $userData = $this->ensure_logged_in();
+    if (!$userData) {
+      redirect('login', 'refresh');
+    }
+    $this->load->view('header', $userData);
     $crud = new grocery_CRUD();
     $crud->set_theme('datatables');
 
@@ -82,7 +114,11 @@ class Main extends CI_Controller {
   }
 
   public function competitors() {
-    $this->load->view('header');
+    $userData = $this->ensure_logged_in();
+    if (!$userData) {
+      redirect('login', 'refresh');
+    }
+    $this->load->view('header', $userData);
     $crud = new grocery_CRUD();
     $crud->set_theme('datatables');
 
@@ -131,7 +167,11 @@ class Main extends CI_Controller {
   }
 
   public function venues() {
-    $this->load->view('header');
+    $userData = $this->ensure_logged_in();
+    if (!$userData) {
+      redirect('login', 'refresh');
+    }
+    $this->load->view('header', $userData);
     $crud = new grocery_CRUD();
     $crud->set_theme('datatables');
 
@@ -158,7 +198,11 @@ class Main extends CI_Controller {
   }
 
   public function cards() {
-    $this->load->view('header');
+    $userData = $this->ensure_logged_in();
+    if (!$userData) {
+      redirect('login', 'refresh');
+    }
+    $this->load->view('header', $userData);
     $crud = new grocery_CRUD();
     $crud->set_theme('datatables');
 
