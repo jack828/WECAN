@@ -61,13 +61,12 @@ class Main extends CI_Controller {
 
     //give focus on name used for operations e.g. Add Order, Delete Order
     $crud->set_subject('Team');
-    $crud->fields('ID', 'teamName', 'nfa', 'acronym', 'nickname', 'eliminated');
+    $crud->fields('teamName', 'nfa', 'acronym', 'nickname', 'eliminated');
 
     //form validation (could match database columns set to "not null")
-    $crud->required_fields('ID', 'teamName', 'nfa', 'acronym', 'nickname', 'eliminated');
+    $crud->required_fields('teamName', 'nfa', 'acronym', 'nickname', 'eliminated');
 
     //change column heading name for readability ('columm name', 'name to display in frontend column header')
-    $crud->display_as('ID', 'TeamID');
     $crud->display_as('teamName', 'Team Name');
     $crud->display_as('nfa', 'Association');
     $crud->display_as('acronym', 'Acronym');
@@ -92,22 +91,17 @@ class Main extends CI_Controller {
 
     //give focus on name used for operations e.g. Add Order, Delete Order
     $crud->set_subject('Competitor');
-    $crud->fields('ID', 'titleID', 'fullName', 'role', 'teamID', 'authorised');
+    $crud->fields('titleID', 'fullName', 'role', 'teamID', 'authorised');
 
     //set the foreign keys to appear as drop-down menus
     // ('this fk column','referencing table', 'column in referencing table')
     $crud->set_relation('teamID', 'team', 'teamName');
     $crud->set_relation('titleID', 'competitorTitle', 'title');
 
-    //many-to-many relationship with link table see grocery crud website: www.grocerycrud.com/examples/set_a_relation_n_n
-    //('give a new name to related column for list in fields here', 'join table', 'other parent table', 'this fk in join table', 'other fk in join table', 'other parent table's viewable column to see in field')
-    // $crud->set_relation_n_n('items', 'order_items', 'items', 'invoice_no', 'item_id', 'itemDesc');
-
     //form validation (could match database columns set to "not null")
-    $crud->required_fields('ID', 'titleID', 'fullName', 'role', 'teamID', 'authorised');
+    $crud->required_fields('titleID', 'fullName', 'role', 'teamID', 'authorised');
 
     //change column heading name for readability ('columm name', 'name to display in frontend column header')
-    $crud->display_as('ID', 'CompetitorID');
     $crud->display_as('titleID', 'Title');
     $crud->display_as('fullName', 'Name');
     $crud->display_as('role', 'Role');
@@ -132,14 +126,13 @@ class Main extends CI_Controller {
 
     //give focus on name used for operations e.g. Add Order, Delete Order
     $crud->set_subject('Venue');
-    $crud->fields('ID', 'venueName', 'stadium');
+    $crud->fields('venueName', 'stadium');
 
     //form validation (could match database columns set to "not null")
-    $crud->required_fields('ID', 'venueName', 'stadium');
+    $crud->required_fields('venueName', 'stadium');
 
     //change column heading name for readability ('columm name', 'name to display in frontend column header')
-    $crud->display_as('ID', 'VenueID');
-    $crud->display_as('venueName', 'venue Name');
+    $crud->display_as('venueName', 'Venue Name');
     $crud->display_as('stadium', 'Stadium');
 
     $output = $crud->render();
@@ -160,15 +153,14 @@ class Main extends CI_Controller {
 
     //give focus on name used for operations e.g. Add Order, Delete Order
     $crud->set_subject('Card');
-    $crud->fields('ID', 'competitorID', 'startDate', 'endDate', 'cardStateID');
+    $crud->fields('competitorID', 'startDate', 'endDate', 'cardStateID');
 
     $crud->set_relation('competitorID', 'competitor', 'fullName');
     $crud->set_relation('cardStateID', 'cardState', 'state');
 
-    $crud->required_fields('ID', 'competitorID', 'startDate', 'endDate', 'cardStateID');
+    $crud->required_fields('competitorID', 'startDate', 'endDate', 'cardStateID');
 
     //change column heading name for readability ('columm name', 'name to display in frontend column header')
-    $crud->display_as('ID', 'CardID');
     $crud->display_as('competitorID', 'Competitor Name');
     $crud->display_as('startDate', 'Start Date');
     $crud->display_as('endDate', 'End Date');
