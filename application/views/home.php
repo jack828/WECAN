@@ -5,11 +5,9 @@
   <style>
     h1 {
       text-align: center;
-      font-family: Calibri;
     }
     p.p-centre {
       text-align: center;
-      font-family: Arial;
     }
     #cogs {
       display: block;

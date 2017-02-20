@@ -5,7 +5,6 @@
   <style>
     h1 {
       text-align: center;
-      font-family: Calibri;
     }
   </style>
 </head>

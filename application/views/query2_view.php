@@ -5,7 +5,6 @@
   <style>
     h1, h2 {
       text-align: center;
-      font-family: Calibri;
     }
     table.mytable {
       border-collapse: collapse;

@@ -4,7 +4,6 @@
   <meta charset="utf-8" />
   <style>
     #nav {
-      font-family: Arial;
       font-size: 14px;
       width: 100%;
       float: left;
