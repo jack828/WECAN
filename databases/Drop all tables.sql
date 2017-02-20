@@ -6,3 +6,4 @@ DROP TABLE cardState;
 DROP TABLE competitor;
 DROP TABLE competitorTitle;
 DROP TABLE team;
+DROP TABLE accounts;
