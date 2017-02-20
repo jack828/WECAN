@@ -108,8 +108,22 @@ class Main extends CI_Controller {
     $crud->display_as('teamID', 'Team Name');
     $crud->display_as('authorised', 'Authorised');
 
+    $crud->callback_after_insert(array($this, 'insert_card_callback'));
+
     $output = $crud->render();
     $this->competitors_output($output);
+  }
+
+  public function insert_card_callback($array, $primary_key) {
+    $new_card = array(
+      "competitorID" => $primary_key,
+      "startDate" => date('Y-m-d'),
+      "endDate" => "2017-08-06"
+    );
+
+    $this->db->insert('card', $new_card);
+
+    return true;
   }
 
   public function competitors_output($output = null) {
