@@ -270,6 +270,7 @@ class Main extends CI_Controller {
     $crud->callback_before_insert(array($this, 'insert_card_callback'));
     $crud->unset_delete();
     $crud->unset_edit();
+    $crud->add_action('Unauthorise/Lost/Stolen', '', '', 'ui-icon-circle-minus', array($this, 'unauthorise_card_url'));
 
     $output = $crud->render();
     $this->cards_output($output);
@@ -283,6 +284,32 @@ class Main extends CI_Controller {
     $data['endDate'] = "06/08/2017";
     $data['cardStateID'] = '1';
     return $data;
+  }
+
+  public function unauthorise_card_url($primary_key, $row) {
+    return site_url("main/unauthorise_card/$primary_key/" . $row->competitorID);
+  }
+
+  public function unauthorise_card($primary_key, $competitorID) {
+    // Unauthorise the card first
+    $cardUpdate = array(
+        'cardStateID' => '3'
+      , 'endDate' => date('Y-m-d')
+    );
+    $cardWhere = array('ID' => $primary_key);
+
+    $result = $this->db->update('card', $cardUpdate, $cardWhere);
+
+    // Reissue new one
+    $newCard = array(
+        'competitorID' => $competitorID
+      , 'startDate' => date('Y-m-d')
+      , 'endDate' => '2017-08-06'
+      , 'cardStateID' => '1'
+    );
+    $result = $this->db->insert('card', $newCard);
+
+    redirect('main/cards', 'refresh');
   }
 
   public function cards_output($output = null) {
