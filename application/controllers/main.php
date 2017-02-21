@@ -231,6 +231,8 @@ class Main extends CI_Controller {
     $crud->display_as('venueName', 'Venue Name');
     $crud->display_as('stadium', 'Stadium');
 
+    $crud->unset_delete();
+
     $output = $crud->render();
     $this->venues_output($output);
   }
