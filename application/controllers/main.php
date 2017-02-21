@@ -105,8 +105,23 @@ class Main extends CI_Controller {
     $crud->display_as('nickname', 'Nickname');
     $crud->display_as('eliminated', 'Eliminated');
 
+    $crud->unset_delete();
+    $crud->add_action('Eliminate', '', '', 'ui-icon-circle-minus', array($this, 'eliminate_team_url'));
+
     $output = $crud->render();
     $this->teams_output($output);
+  }
+
+  public function eliminate_team_url($primary_key) {
+    return site_url('main/eliminate_team/' . $primary_key);
+  }
+
+  public function eliminate_team($primary_key) {
+    $sql = "UPDATE card, competitor, team SET team.eliminated = TRUE, card.cardStateID = 2, card.endDate = CURDATE(), competitor.authorised = FALSE WHERE card.competitorID = competitor.ID AND competitor.teamID = team.ID AND team.ID = $primary_key;";
+
+    $result = $this->db->query($sql);
+
+    redirect("main/teams", 'refresh');
   }
 
   public function teams_output($output = null) {
