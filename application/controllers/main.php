@@ -94,6 +94,7 @@ class Main extends CI_Controller {
     //give focus on name used for operations e.g. Add Order, Delete Order
     $crud->set_subject('Team');
     $crud->fields('teamName', 'nfa', 'acronym', 'nickname', 'eliminated');
+    $crud->field_type('eliminated', 'dropdown', array("0"  => "NO", "1" => "YES"));
 
     //form validation (could match database columns set to "not null")
     $crud->required_fields('teamName', 'nfa', 'acronym', 'nickname', 'eliminated');
@@ -143,6 +144,7 @@ class Main extends CI_Controller {
     //give focus on name used for operations e.g. Add Order, Delete Order
     $crud->set_subject('Competitor');
     $crud->fields('titleID', 'fullName', 'role', 'teamID', 'authorised');
+    $crud->field_type('authorised', 'dropdown', array("0"  => "NO", "1" => "YES"));
 
     //set the foreign keys to appear as drop-down menus
     // ('this fk column','referencing table', 'column in referencing table')
