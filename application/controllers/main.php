@@ -145,6 +145,8 @@ class Main extends CI_Controller {
     $crud->display_as('authorised', 'Authorised');
 
     $crud->callback_after_insert(array($this, 'insert_card_callback'));
+    $crud->unset_delete();
+    $crud->add_action('Eliminate', '', '', 'ui-icon-circle-minus', array($this, 'eliminate_competitor'));
 
     $output = $crud->render();
     $this->competitors_output($output);
@@ -160,6 +162,29 @@ class Main extends CI_Controller {
     $this->db->insert('card', $new_card);
 
     return true;
+  }
+
+  public function eliminate_competitor($primary_key) {
+    return site_url('main/eliminate/' . $primary_key);
+  }
+
+  public function eliminate($primary_key) {
+    $now = date('Y-m-d');
+    $cardWhere = array(
+        'competitorID' => $primary_key
+      , 'cardStateID' => 1
+    );
+    $cardUpdate = array(
+        'endDate' => $now
+      , 'cardStateID' => 2
+    );
+    $competitorUpdate = array(
+        'authorised' => '0'
+    );
+    $this->db->update('competitor', $competitorUpdate, "ID = $primary_key");
+    $this->db->update('card', $cardUpdate, $cardWhere);
+
+    redirect("main/competitors", 'refresh');
   }
 
   public function competitors_output($output = null) {
