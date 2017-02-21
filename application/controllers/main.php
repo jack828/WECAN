@@ -161,7 +161,7 @@ class Main extends CI_Controller {
     $crud->display_as('teamID', 'Team Name');
     $crud->display_as('authorised', 'Authorised');
 
-    $crud->callback_after_insert(array($this, 'insert_card_callback'));
+    $crud->callback_after_insert(array($this, 'insert_competitor_callback'));
     $crud->unset_delete();
     $crud->add_action('Eliminate', '', '', 'ui-icon-circle-minus', array($this, 'eliminate_competitor_url'));
 
@@ -169,7 +169,7 @@ class Main extends CI_Controller {
     $this->competitors_output($output);
   }
 
-  public function insert_card_callback($array, $primary_key) {
+  public function insert_competitor_callback($array, $primary_key) {
     $new_card = array(
       "competitorID" => $primary_key,
       "startDate" => date('Y-m-d'),
@@ -254,11 +254,12 @@ class Main extends CI_Controller {
     //give focus on name used for operations e.g. Add Order, Delete Order
     $crud->set_subject('Card');
     $crud->fields('competitorID', 'startDate', 'endDate', 'cardStateID');
+    $crud->add_fields('competitorID', 'startDate');
 
     $crud->set_relation('competitorID', 'competitor', 'fullName');
     $crud->set_relation('cardStateID', 'cardState', 'state');
 
-    $crud->required_fields('competitorID', 'startDate', 'endDate', 'cardStateID');
+    $crud->required_fields('competitorID');
 
     //change column heading name for readability ('columm name', 'name to display in frontend column header')
     $crud->display_as('competitorID', 'Competitor Name');
@@ -266,10 +267,21 @@ class Main extends CI_Controller {
     $crud->display_as('endDate', 'End Date');
     $crud->display_as('cardStateID', 'Card State');
 
+    $crud->callback_before_insert(array($this, 'insert_card_callback'));
     $crud->unset_delete();
 
     $output = $crud->render();
     $this->cards_output($output);
+  }
+
+  public function insert_card_callback($data) {
+    if (strlen($data['startDate']) == 0) {
+      $data['startDate'] = date('Y-m-d');
+    }
+
+    $data['endDate'] = "06/08/2017";
+    $data['cardStateID'] = '1';
+    return $data;
   }
 
   public function cards_output($output = null) {
