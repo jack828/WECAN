@@ -269,6 +269,7 @@ class Main extends CI_Controller {
 
     $crud->callback_before_insert(array($this, 'insert_card_callback'));
     $crud->unset_delete();
+    $crud->unset_edit();
 
     $output = $crud->render();
     $this->cards_output($output);
