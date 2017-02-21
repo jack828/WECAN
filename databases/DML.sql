@@ -58,7 +58,8 @@ WHERE ID = <thisMatch>;
 UPDATE card, competitor, team
 SET team.eliminated = TRUE,
 	card.cardStateID = 2,				-- expire all competitor cards for eliminated team
-	card.endDate = CURDATE()					-- update all cards to reflect date of elimination
+	card.endDate = CURDATE(),					-- update all cards to reflect date of elimination
+  competitor.authorised = FALSE
 WHERE card.competitorID = competitor.ID
 	AND competitor.teamID = team.ID
 	AND team.ID = <thisTeamID>;
