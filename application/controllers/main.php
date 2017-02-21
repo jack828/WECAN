@@ -146,7 +146,7 @@ class Main extends CI_Controller {
 
     $crud->callback_after_insert(array($this, 'insert_card_callback'));
     $crud->unset_delete();
-    $crud->add_action('Eliminate', '', '', 'ui-icon-circle-minus', array($this, 'eliminate_competitor'));
+    $crud->add_action('Eliminate', '', '', 'ui-icon-circle-minus', array($this, 'eliminate_competitor_url'));
 
     $output = $crud->render();
     $this->competitors_output($output);
@@ -164,11 +164,11 @@ class Main extends CI_Controller {
     return true;
   }
 
-  public function eliminate_competitor($primary_key) {
-    return site_url('main/eliminate/' . $primary_key);
+  public function eliminate_competitor_url($primary_key) {
+    return site_url('main/eliminate_competitor/' . $primary_key);
   }
 
-  public function eliminate($primary_key) {
+  public function eliminate_competitor($primary_key) {
     $now = date('Y-m-d');
     $cardWhere = array(
         'competitorID' => $primary_key
