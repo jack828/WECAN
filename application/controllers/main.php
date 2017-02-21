@@ -267,23 +267,13 @@ class Main extends CI_Controller {
     $crud->display_as('endDate', 'End Date');
     $crud->display_as('cardStateID', 'Card State');
 
-    $crud->callback_before_insert(array($this, 'insert_card_callback'));
     $crud->unset_delete();
     $crud->unset_edit();
+    $crud->unset_add();
     $crud->add_action('Unauthorise/Lost/Stolen', '', '', 'ui-icon-circle-minus', array($this, 'unauthorise_card_url'));
 
     $output = $crud->render();
     $this->cards_output($output);
-  }
-
-  public function insert_card_callback($data) {
-    if (strlen($data['startDate']) == 0) {
-      $data['startDate'] = date('Y-m-d');
-    }
-
-    $data['endDate'] = "06/08/2017";
-    $data['cardStateID'] = '1';
-    return $data;
   }
 
   public function unauthorise_card_url($primary_key, $row) {
