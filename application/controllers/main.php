@@ -266,6 +266,8 @@ class Main extends CI_Controller {
     $crud->display_as('endDate', 'End Date');
     $crud->display_as('cardStateID', 'Card State');
 
+    $crud->unset_delete();
+
     $output = $crud->render();
     $this->cards_output($output);
   }
