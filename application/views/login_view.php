@@ -15,14 +15,18 @@
     <h1>Login</h1>
     <?php echo validation_errors(); ?>
     <?php echo form_open('verifyLogin'); ?>
-    <label for="username">Username:</label>
-    <input type="text" size="20" id="username" name="username"/>
-    <br/>
-    <label for="password">Password:</label>
-    <input type="password" size="20" id="password" name="password"/>
-    <br/>
-    <input type="submit" value="Login"/>
+      <div class="login-group">
+        <label for="username">Username</label>
+        <input type="text" size="20" id="username" name="username"/>
+      </div>
+      <br/>
+      <div class="login-group">
+        <label for="password">Password</label>
+        <input type="password" size="20" id="password" name="password"/>
+      </div>
+      <br/>
+      <input type="submit" value="Login"/>
+    </form>
   </div>
-</form>
 </body>
 </html>

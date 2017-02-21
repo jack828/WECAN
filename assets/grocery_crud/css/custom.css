@@ -53,3 +53,8 @@
   font-size: 3em;
   margin-bottom: 0;
 }
+
+.login-group label {
+  display: block;
+  margin-bottom: 0.5em;
+}
