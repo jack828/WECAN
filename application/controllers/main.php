@@ -215,11 +215,14 @@ class Main extends CI_Controller {
     $crud->set_subject('Competitor');
     $crud->fields('titleID', 'fullName', 'role', 'teamID', 'authorised');
     $crud->field_type('authorised', 'dropdown', array("0"  => "NO", "1" => "YES"));
+    $crud->callback_edit_field('authorised', function ($value) {
+      return ($value == '0') ? "NO" : "YES";
+    });
 
     $crud->set_relation('teamID', 'team', 'teamName')
           ->set_relation('titleID', 'competitorTitle', 'title');
 
-    $crud->required_fields('titleID', 'fullName', 'role', 'teamID', 'authorised');
+    $crud->required_fields('titleID', 'fullName', 'role', 'teamID');
 
     $crud->display_as('titleID', 'Title')
           ->display_as('fullName', 'Name')
