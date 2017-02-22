@@ -22,5 +22,11 @@ foreach($css_files as $file): ?>
     <?php echo $competitors->output; ?>
     </div>
   <?php endif; ?>
+  <?php if(isset($matches)): ?>
+    <h2 class="center">Matches</h2>
+    <div>
+    <?php echo $matches->output; ?>
+    </div>
+  <?php endif; ?>
 </body>
 </html>

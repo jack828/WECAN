@@ -112,7 +112,7 @@ class Main extends CI_Controller {
     $output = $crud->render();
 
     if ($crud->getState() == 'read') {
-      // Get access logs
+      // Get competitors
       $teamID = $crud->getStateInfo()->primary_key;
       $competitorCrud = new grocery_CRUD();
       $competitorCrud->set_theme('datatables');
@@ -143,6 +143,47 @@ class Main extends CI_Controller {
       $output->js_lib_files = array_merge($competitors->js_lib_files, $output->js_lib_files);
       $output->js_config_files = array_merge($competitors->js_config_files, $output->js_config_files);
       $output->css_files = array_merge($competitors->css_files, $output->css_files);
+
+      // Get matches
+      $matchesCrud = new grocery_CRUD();
+      $matchesCrud->set_theme('datatables');
+
+      $matchesCrud->set_table('matchAccess');
+      $matchesCrud->or_where('team1ID', $teamID);
+      $matchesCrud->or_where('team2ID', $teamID);
+
+      //give focus on name used for operations e.g. Add Order, Delete Order
+      $matchesCrud->set_subject('Match');
+      $matchesCrud->fields('ID', 'matchDate', 'venueID', 'team1ID', 'team2ID');
+
+      //set the foreign keys to appear as drop-down menus
+      // ('this fk column','referencing table', 'column in referencing table')
+      $matchesCrud->set_relation('venueID', 'venue', 'venueName');
+      $matchesCrud->set_relation('team1ID', 'team', 'teamName');
+      $matchesCrud->set_relation('team2ID', 'team', 'teamName');
+
+      //form validation (could match database columns set to "not null")
+      $matchesCrud->required_fields('ID', 'matchDate', 'venueID', 'team1ID', 'team2ID');
+
+      //change column heading name for readability ('columm name', 'name to display in frontend column header')
+      $matchesCrud->display_as('ID', 'Match Number');
+      $matchesCrud->display_as('matchDate', 'Match Date');
+      $matchesCrud->display_as('venueID', 'Venue');
+      $matchesCrud->display_as('team1ID', 'Team 1');
+      $matchesCrud->display_as('team2ID', 'Team 2');
+
+      $matchesCrud->unset_operations();
+
+      $state_code = 1; // List state
+      $matches = $matchesCrud->render($state_code);
+
+      // Add the output
+      $output->matches = $matches;
+      // Add access log styling
+      $output->js_files = array_merge($matches->js_files, $output->js_files);
+      $output->js_lib_files = array_merge($matches->js_lib_files, $output->js_lib_files);
+      $output->js_config_files = array_merge($matches->js_config_files, $output->js_config_files);
+      $output->css_files = array_merge($matches->css_files, $output->css_files);
     }
 
     $this->teams_output($output);
