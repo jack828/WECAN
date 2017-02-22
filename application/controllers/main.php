@@ -45,31 +45,26 @@ class Main extends CI_Controller {
       redirect('login', 'refresh');
     }
     $this->load->view('header', $userData);
+
     $crud = new grocery_CRUD();
     $crud->set_theme('datatables');
 
-    //table name exact from database
     $crud->set_table('matchAccess');
 
-    //give focus on name used for operations e.g. Add Order, Delete Order
     $crud->set_subject('Match');
     $crud->fields('ID', 'matchDate', 'venueID', 'team1ID', 'team2ID');
 
-    //set the foreign keys to appear as drop-down menus
-    // ('this fk column','referencing table', 'column in referencing table')
-    $crud->set_relation('venueID', 'venue', 'venueName');
-    $crud->set_relation('team1ID', 'team', 'teamName');
-    $crud->set_relation('team2ID', 'team', 'teamName');
+    $crud->set_relation('venueID', 'venue', 'venueName')
+          ->set_relation('team1ID', 'team', 'teamName')
+          ->set_relation('team2ID', 'team', 'teamName');
 
-    //form validation (could match database columns set to "not null")
     $crud->required_fields('ID', 'matchDate', 'venueID', 'team1ID', 'team2ID');
 
-    //change column heading name for readability ('columm name', 'name to display in frontend column header')
-    $crud->display_as('ID', 'Match Number');
-    $crud->display_as('matchDate', 'Match Date');
-    $crud->display_as('venueID', 'Venue');
-    $crud->display_as('team1ID', 'Team 1');
-    $crud->display_as('team2ID', 'Team 2');
+    $crud->display_as('ID', 'Match Number')
+          ->display_as('matchDate', 'Match Date')
+          ->display_as('venueID', 'Venue')
+          ->display_as('team1ID', 'Team 1')
+          ->display_as('team2ID', 'Team 2');
 
     $output = $crud->render();
     $this->matches_output($output);
@@ -85,13 +80,12 @@ class Main extends CI_Controller {
       redirect('login', 'refresh');
     }
     $this->load->view('header', $userData);
+
     $crud = new grocery_CRUD();
     $crud->set_theme('datatables');
 
-    //table name exact from database
     $crud->set_table('team');
 
-    //give focus on name used for operations e.g. Add Order, Delete Order
     $crud->set_subject('Team');
     $crud->fields('teamName', 'nfa', 'acronym', 'nickname', 'eliminated');
     $crud->field_type('eliminated', 'dropdown', array("0"  => "NO", "1" => "YES"));
@@ -99,15 +93,13 @@ class Main extends CI_Controller {
       return ($value == '0') ? "NO" : "YES";
     });
 
-    //form validation (could match database columns set to "not null")
     $crud->required_fields('teamName', 'nfa', 'acronym', 'nickname');
 
-    //change column heading name for readability ('columm name', 'name to display in frontend column header')
-    $crud->display_as('teamName', 'Team Name');
-    $crud->display_as('nfa', 'Association');
-    $crud->display_as('acronym', 'Acronym');
-    $crud->display_as('nickname', 'Nickname');
-    $crud->display_as('eliminated', 'Eliminated');
+    $crud->display_as('teamName', 'Team Name')
+          ->display_as('nfa', 'Association')
+          ->display_as('acronym', 'Acronym')
+          ->display_as('nickname', 'Nickname')
+          ->display_as('eliminated', 'Eliminated');
 
     $crud->unset_delete();
     $crud->add_action('Eliminate', '', '', 'ui-icon-circle-minus', array($this, 'eliminate_team_url'));
@@ -120,8 +112,8 @@ class Main extends CI_Controller {
       $competitorCrud = new grocery_CRUD();
       $competitorCrud->set_theme('datatables');
 
-      $competitorCrud->set_table('competitor');
-      $competitorCrud->where('teamID', $teamID);
+      $competitorCrud->set_table('competitor')
+                      ->where('teamID', $teamID);
 
       $competitorCrud->set_subject('Competitors');
       $competitorCrud->columns('titleID', 'fullName', 'role', 'authorised');
@@ -129,10 +121,10 @@ class Main extends CI_Controller {
 
       $competitorCrud->set_relation('titleID', 'competitorTitle', 'title');
 
-      $competitorCrud->display_as('titleID', 'Title');
-      $competitorCrud->display_as('fullName', 'Name');
-      $competitorCrud->display_as('role', 'Role');
-      $competitorCrud->display_as('authorised', 'Authorised');
+      $competitorCrud->display_as('titleID', 'Title')
+                      ->display_as('fullName', 'Name')
+                      ->display_as('role', 'Role')
+                      ->display_as('authorised', 'Authorised');
 
       $competitorCrud->unset_operations();
 
@@ -151,9 +143,9 @@ class Main extends CI_Controller {
       $matchesCrud = new grocery_CRUD();
       $matchesCrud->set_theme('datatables');
 
-      $matchesCrud->set_table('matchAccess');
-      $matchesCrud->or_where('team1ID', $teamID);
-      $matchesCrud->or_where('team2ID', $teamID);
+      $matchesCrud->set_table('matchAccess')
+                  ->or_where('team1ID', $teamID)
+                  ->or_where('team2ID', $teamID);
 
       //give focus on name used for operations e.g. Add Order, Delete Order
       $matchesCrud->set_subject('Match');
@@ -161,19 +153,19 @@ class Main extends CI_Controller {
 
       //set the foreign keys to appear as drop-down menus
       // ('this fk column','referencing table', 'column in referencing table')
-      $matchesCrud->set_relation('venueID', 'venue', 'venueName');
-      $matchesCrud->set_relation('team1ID', 'team', 'teamName');
-      $matchesCrud->set_relation('team2ID', 'team', 'teamName');
+      $matchesCrud->set_relation('venueID', 'venue', 'venueName')
+                  ->set_relation('team1ID', 'team', 'teamName')
+                  ->set_relation('team2ID', 'team', 'teamName');
 
       //form validation (could match database columns set to "not null")
       $matchesCrud->required_fields('ID', 'matchDate', 'venueID', 'team1ID', 'team2ID');
 
       //change column heading name for readability ('columm name', 'name to display in frontend column header')
-      $matchesCrud->display_as('ID', 'Match Number');
-      $matchesCrud->display_as('matchDate', 'Match Date');
-      $matchesCrud->display_as('venueID', 'Venue');
-      $matchesCrud->display_as('team1ID', 'Team 1');
-      $matchesCrud->display_as('team2ID', 'Team 2');
+      $matchesCrud->display_as('ID', 'Match Number')
+                  ->display_as('matchDate', 'Match Date')
+                  ->display_as('venueID', 'Venue')
+                  ->display_as('team1ID', 'Team 1')
+                  ->display_as('team2ID', 'Team 2');
 
       $matchesCrud->unset_operations();
 
@@ -214,31 +206,26 @@ class Main extends CI_Controller {
       redirect('login', 'refresh');
     }
     $this->load->view('header', $userData);
+
     $crud = new grocery_CRUD();
     $crud->set_theme('datatables');
 
-    //table name exact from database
     $crud->set_table('competitor');
 
-    //give focus on name used for operations e.g. Add Order, Delete Order
     $crud->set_subject('Competitor');
     $crud->fields('titleID', 'fullName', 'role', 'teamID', 'authorised');
     $crud->field_type('authorised', 'dropdown', array("0"  => "NO", "1" => "YES"));
 
-    //set the foreign keys to appear as drop-down menus
-    // ('this fk column','referencing table', 'column in referencing table')
-    $crud->set_relation('teamID', 'team', 'teamName');
-    $crud->set_relation('titleID', 'competitorTitle', 'title');
+    $crud->set_relation('teamID', 'team', 'teamName')
+          ->set_relation('titleID', 'competitorTitle', 'title');
 
-    //form validation (could match database columns set to "not null")
     $crud->required_fields('titleID', 'fullName', 'role', 'teamID', 'authorised');
 
-    //change column heading name for readability ('columm name', 'name to display in frontend column header')
-    $crud->display_as('titleID', 'Title');
-    $crud->display_as('fullName', 'Name');
-    $crud->display_as('role', 'Role');
-    $crud->display_as('teamID', 'Team Name');
-    $crud->display_as('authorised', 'Authorised');
+    $crud->display_as('titleID', 'Title')
+          ->display_as('fullName', 'Name')
+          ->display_as('role', 'Role')
+          ->display_as('teamID', 'Team Name')
+          ->display_as('authorised', 'Authorised');
 
     $crud->callback_after_insert(array($this, 'insert_competitor_callback'));
     $crud->unset_delete();
@@ -293,19 +280,17 @@ class Main extends CI_Controller {
       redirect('login', 'refresh');
     }
     $this->load->view('header', $userData);
+
     $crud = new grocery_CRUD();
     $crud->set_theme('datatables');
 
-    //table name exact from database
     $crud->set_table('venue');
 
-    //give focus on name used for operations e.g. Add Order, Delete Order
     $crud->set_subject('Venue');
     $crud->fields('venueName', 'stadium');
 
-    //change column heading name for readability ('columm name', 'name to display in frontend column header')
-    $crud->display_as('venueName', 'Venue Name');
-    $crud->display_as('stadium', 'Stadium');
+    $crud->display_as('venueName', 'Venue Name')
+          ->display_as('stadium', 'Stadium');
 
     $crud->unset_delete();
 
@@ -316,6 +301,7 @@ class Main extends CI_Controller {
       $venueID = $crud->getStateInfo()->primary_key;
       $accessCrud = new grocery_CRUD();
       $accessCrud->set_theme('datatables');
+
       $accessCrud->set_model('custom_query_model');
 
       $accessCrud->set_table('venueUsage');
@@ -356,27 +342,25 @@ class Main extends CI_Controller {
       redirect('login', 'refresh');
     }
     $this->load->view('header', $userData);
+
     $crud = new grocery_CRUD();
     $crud->set_theme('datatables');
 
-    //table name exact from database
     $crud->set_table('card');
 
-    //give focus on name used for operations e.g. Add Order, Delete Order
     $crud->set_subject('Card');
     $crud->fields('competitorID', 'startDate', 'endDate', 'cardStateID');
     $crud->add_fields('competitorID', 'startDate');
 
-    $crud->set_relation('competitorID', 'competitor', 'fullName');
-    $crud->set_relation('cardStateID', 'cardState', 'state');
+    $crud->set_relation('competitorID', 'competitor', 'fullName')
+          ->set_relation('cardStateID', 'cardState', 'state');
 
     $crud->required_fields('competitorID');
 
-    //change column heading name for readability ('columm name', 'name to display in frontend column header')
-    $crud->display_as('competitorID', 'Competitor Name');
-    $crud->display_as('startDate', 'Start Date');
-    $crud->display_as('endDate', 'End Date');
-    $crud->display_as('cardStateID', 'Card State');
+    $crud->display_as('competitorID', 'Competitor Name')
+          ->display_as('startDate', 'Start Date')
+          ->display_as('endDate', 'End Date')
+          ->display_as('cardStateID', 'Card State');
 
     $crud->unset_delete();
     $crud->unset_edit();
