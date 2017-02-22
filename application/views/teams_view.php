@@ -16,5 +16,11 @@ foreach($css_files as $file): ?>
   <div>
     <?php echo $output; ?>
   </div>
+  <?php if(isset($competitors)): ?>
+    <h2 class="center">Competitors</h2>
+    <div>
+    <?php echo $competitors->output; ?>
+    </div>
+  <?php endif; ?>
 </body>
 </html>

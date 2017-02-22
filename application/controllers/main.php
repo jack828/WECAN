@@ -110,6 +110,41 @@ class Main extends CI_Controller {
     $crud->add_action('Eliminate', '', '', 'ui-icon-circle-minus', array($this, 'eliminate_team_url'));
 
     $output = $crud->render();
+
+    if ($crud->getState() == 'read') {
+      // Get access logs
+      $teamID = $crud->getStateInfo()->primary_key;
+      $competitorCrud = new grocery_CRUD();
+      $competitorCrud->set_theme('datatables');
+
+      $competitorCrud->set_table('competitor');
+      $competitorCrud->where('teamID', $teamID);
+
+      $competitorCrud->set_subject('Competitors');
+      $competitorCrud->columns('titleID', 'fullName', 'role', 'authorised');
+      $competitorCrud->field_type('authorised', 'dropdown', array("0"  => "NO", "1" => "YES"));
+
+      $competitorCrud->set_relation('titleID', 'competitorTitle', 'title');
+
+      $competitorCrud->display_as('titleID', 'Title');
+      $competitorCrud->display_as('fullName', 'Name');
+      $competitorCrud->display_as('role', 'Role');
+      $competitorCrud->display_as('authorised', 'Authorised');
+
+      $competitorCrud->unset_operations();
+
+      $state_code = 1; // List state
+      $competitors = $competitorCrud->render($state_code);
+
+      // Add the output
+      $output->competitors = $competitors;
+      // Add access log styling
+      $output->js_files = array_merge($competitors->js_files, $output->js_files);
+      $output->js_lib_files = array_merge($competitors->js_lib_files, $output->js_lib_files);
+      $output->js_config_files = array_merge($competitors->js_config_files, $output->js_config_files);
+      $output->css_files = array_merge($competitors->css_files, $output->css_files);
+    }
+
     $this->teams_output($output);
   }
 
