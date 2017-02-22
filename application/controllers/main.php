@@ -224,9 +224,6 @@ class Main extends CI_Controller {
     $crud->set_subject('Venue');
     $crud->fields('venueName', 'stadium');
 
-    //form validation (could match database columns set to "not null")
-    $crud->required_fields('venueName', 'stadium');
-
     //change column heading name for readability ('columm name', 'name to display in frontend column header')
     $crud->display_as('venueName', 'Venue Name');
     $crud->display_as('stadium', 'Stadium');
@@ -234,6 +231,39 @@ class Main extends CI_Controller {
     $crud->unset_delete();
 
     $output = $crud->render();
+
+    if ($crud->getState() == 'read') {
+      // Get access logs
+      $venueID = $crud->getStateInfo()->primary_key;
+      $accessCrud = new grocery_CRUD();
+      $accessCrud->set_theme('datatables');
+      $accessCrud->set_model('custom_query_model');
+
+      $accessCrud->set_table('venueUsage');
+
+      $accessCrud->set_subject('Access Logs');
+      $accessCrud->columns('cardID', 'fullName', 'dateAccessed', 'accessGranted');
+
+      $accessCrud->basic_model->set_query_str("SELECT venueUsage.ID, venueUsage.cardID, competitor.fullName, venueUsage.dateAccessed, venueUsage.accessGranted FROM competitor, card, venueUsage WHERE competitor.ID = card.competitorID AND card.ID = venueUsage.cardID AND venueUsage.venueID = $venueID");
+
+      $accessCrud->field_type('accessGranted', 'dropdown', array("0"  => "NO", "1" => "YES"));
+
+      $accessCrud->display_as('cardID', 'Card ID');
+      $accessCrud->unset_columns(array('venueID'));
+      $accessCrud->unset_operations();
+
+      $state_code = 1; // List state
+      $accessLogs = $accessCrud->render($state_code);
+
+      // Add the output
+      $output->accessLogs = $accessLogs;
+      // Add access log styling
+      $output->js_files = array_merge($accessLogs->js_files, $output->js_files);
+      $output->js_lib_files = array_merge($accessLogs->js_lib_files, $output->js_lib_files);
+      $output->js_config_files = array_merge($accessLogs->js_config_files, $output->js_config_files);
+      $output->css_files = array_merge($accessLogs->css_files, $output->css_files);
+    }
+
     $this->venues_output($output);
   }
 

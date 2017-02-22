@@ -16,5 +16,11 @@ foreach($css_files as $file): ?>
   <div>
     <?php echo $output; ?>
   </div>
+  <?php if(isset($accessLogs)): ?>
+    <h2 class="center">Access Logs</h2>
+    <div>
+    <?php echo $accessLogs->output; ?>
+    </div>
+  <?php endif; ?>
 </body>
 </html>

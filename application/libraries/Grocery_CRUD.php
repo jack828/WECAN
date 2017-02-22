@@ -4220,13 +4220,16 @@ class Grocery_CRUD extends grocery_CRUD_States
 	/**
 	 * Initialize all the required libraries and variables before rendering
 	 */
-	protected function pre_render()
+	protected function pre_render($forceState = null)
 	{
 		$this->_initialize_variables();
 		$this->_initialize_helpers();
 		$this->_load_language();
-		$this->state_code = $this->getStateCode();
-
+		if ($forceState) {
+			$this->state_code = $forceState;
+		} else {
+			$this->state_code = $this->getStateCode();
+		}
 		if($this->basic_model === null)
 			$this->set_default_Model();
 
@@ -4244,9 +4247,9 @@ class Grocery_CRUD extends grocery_CRUD_States
 	 *
 	 * @access	public
 	 */
-	public function render()
+	public function render($forceState = null)
 	{
-		$this->pre_render();
+		$this->pre_render($forceState);
 
 		if( $this->state_code != 0 )
 		{
