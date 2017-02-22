@@ -95,9 +95,12 @@ class Main extends CI_Controller {
     $crud->set_subject('Team');
     $crud->fields('teamName', 'nfa', 'acronym', 'nickname', 'eliminated');
     $crud->field_type('eliminated', 'dropdown', array("0"  => "NO", "1" => "YES"));
+    $crud->callback_edit_field('eliminated', function ($value) {
+      return ($value == '0') ? "NO" : "YES";
+    });
 
     //form validation (could match database columns set to "not null")
-    $crud->required_fields('teamName', 'nfa', 'acronym', 'nickname', 'eliminated');
+    $crud->required_fields('teamName', 'nfa', 'acronym', 'nickname');
 
     //change column heading name for readability ('columm name', 'name to display in frontend column header')
     $crud->display_as('teamName', 'Team Name');
