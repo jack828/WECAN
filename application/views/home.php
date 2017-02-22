@@ -25,7 +25,7 @@
   <p class="p-centre">Click one of the navigation links to begin.</p>
 
   <div align="center">
-    <img id="cogs" src="assets/images/cogs.jpg" alt="Cogs and gears" height="260" width="380">
+    <img id="cogs" src="/WECAN/assets/images/cogs.jpg" alt="Cogs and gears" height="260" width="380">
     <!--Image credits: http://www.wallpaperdecor.com.au/murals/scandinavian-wallpaper-decor/typography-collection/cogs-gears-e21324/ -->
   </div>
 </body>
