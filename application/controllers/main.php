@@ -213,7 +213,8 @@ class Main extends CI_Controller {
     $crud->set_table('competitor');
 
     $crud->set_subject('Competitor');
-    $crud->fields('titleID', 'fullName', 'role', 'teamID', 'authorised');
+    $crud->edit_fields('titleID', 'fullName', 'role', 'teamID', 'authorised');
+
     $crud->field_type('authorised', 'dropdown', array("0"  => "NO", "1" => "YES"));
     $crud->callback_edit_field('authorised', function ($value) {
       return ($value == '0') ? "NO" : "YES";
@@ -222,7 +223,7 @@ class Main extends CI_Controller {
     $crud->set_relation('teamID', 'team', 'teamName')
           ->set_relation('titleID', 'competitorTitle', 'title');
 
-    $crud->required_fields('titleID', 'fullName', 'role', 'teamID');
+    $crud->required_fields('titleID', 'fullName', 'role', 'teamID', 'authorised');
 
     $crud->display_as('titleID', 'Title')
           ->display_as('fullName', 'Name')
@@ -234,14 +235,44 @@ class Main extends CI_Controller {
     $crud->unset_delete();
     $crud->add_action('Eliminate', '', '', 'ui-icon-circle-minus', array($this, 'eliminate_competitor_url'));
 
+    if($crud->getState() == 'add') {
+      $crud->add_fields('titleID', 'fullName', 'role', 'teamID', 'authorised', 'startDate');
+      $crud->callback_add_field('startDate', array($this, 'start_date_callback'));
+      $crud->change_field_type('startDate', 'datetime');
+
+      $crud->display_as('startDate', 'Authorised From');
+
+      // Necessary for custom datepicker
+      $crud->set_js('assets/grocery_crud/js/jquery-1.10.2.min.js');
+      $crud->set_js('assets/grocery_crud/js/jquery_plugins/jquery.ui.datetime.js');
+      $crud->set_js('assets/grocery_crud/js/jquery_plugins/ui/jquery-ui-1.10.3.custom.min.js');
+      $crud->set_js('assets/grocery_crud/js/jquery_plugins/config/jquery.datepicker.config.js');
+
+      $crud->set_css('assets/grocery_crud/css/ui/simple/jquery-ui-1.10.1.custom.min.css');
+      $crud->set_css('assets/grocery_crud/css/jquery_plugins/jquery.ui.datetime.css');
+    }
+
     $output = $crud->render();
     $this->competitors_output($output);
   }
 
+  public function start_date_callback() {
+    return "
+      <input id='field-startDate' name='startDate' type='text' value='".date('Y-m-d')."' maxlength='20' class='datepicker-input'>
+      <a class='datepicker-input-clear ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only' tabindex='-1' role='button' aria-disabled='false'>
+        <span class='ui-button-text'>Clear</span>
+      </a>
+      Invalid dates are silently ignored";
+  }
+
   public function insert_competitor_callback($array, $primary_key) {
+    $startDate = date('Y-m-d');
+    if (isset($array['startDate']) && $array['startDate'] != '') {
+      $startDate = $array['startDate'];
+    }
     $new_card = array(
       "competitorID" => $primary_key,
-      "startDate" => date('Y-m-d'),
+      "startDate" => $startDate,
       "endDate" => "2017-08-06"
     );
 

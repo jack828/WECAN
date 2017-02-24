@@ -148,6 +148,9 @@ class grocery_CRUD_Field_Types
 						$field_type = $this->change_field_type[$field_name];
 						$extras 	=  $field_type->extras;
 					}
+          if(!$this->required_fields) {
+            $this->required_fields = array();
+          }
 
 					$field_info = (object)array(
 						'name' => $field_name,
