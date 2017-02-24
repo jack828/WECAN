@@ -235,6 +235,8 @@ class Main extends CI_Controller {
     $crud->unset_delete();
     $crud->add_action('Eliminate', '', '', 'ui-icon-circle-minus', array($this, 'eliminate_competitor_url'));
 
+    $output = $crud->render();
+
     if($crud->getState() == 'add') {
       $crud->add_fields('titleID', 'fullName', 'role', 'teamID', 'authorised', 'startDate');
       $crud->callback_add_field('startDate', array($this, 'start_date_callback'));
@@ -250,9 +252,40 @@ class Main extends CI_Controller {
 
       $crud->set_css('assets/grocery_crud/css/ui/simple/jquery-ui-1.10.1.custom.min.css');
       $crud->set_css('assets/grocery_crud/css/jquery_plugins/jquery.ui.datetime.css');
-    }
+    } elseif ($crud->getState() == 'read') {
+      // Get competitor's cards
+      $competitorID = $crud->getStateInfo()->primary_key;
+      $cardCrud = new grocery_CRUD();
+      $cardCrud->set_theme('datatables');
 
-    $output = $crud->render();
+      $cardCrud->set_table('card')
+                ->where('competitorID', $competitorID);
+
+      $cardCrud->set_subject('Cards');
+      $cardCrud->columns('ID', 'startDate', 'endDate', 'cardStateID');
+      $cardCrud->fields('ID', 'startDate', 'endDate', 'cardStateID');
+
+      $cardCrud->set_relation('cardStateID', 'cardState', 'state');
+
+      $cardCrud->display_as('cardID', 'Card ID')
+                ->display_as('startDate', 'Start Date')
+                ->display_as('endDate', 'End Date')
+                ->display_as('cardStateID', 'Card State');
+
+      $cardCrud->unset_operations();
+      $cardCrud->add_action('Unauthorise/Lost/Stolen', '', '', 'ui-icon-circle-minus', array($this, 'unauthorise_card_url'));
+
+      $state_code = 1; // List state
+      $cards = $cardCrud->render($state_code);
+
+      // Add the output
+      $output->cards = $cards;
+      // Add access log styling
+      $output->js_files = array_merge($cards->js_files, $output->js_files);
+      $output->js_lib_files = array_merge($cards->js_lib_files, $output->js_lib_files);
+      $output->js_config_files = array_merge($cards->js_config_files, $output->js_config_files);
+      $output->css_files = array_merge($cards->css_files, $output->css_files);
+    }
     $this->competitors_output($output);
   }
 
