@@ -4,6 +4,9 @@
   <meta charset="utf-8" />
   <title>WECAN</title>
   <link rel="stylesheet" type="text/css" href="/WECAN/assets/grocery_crud/css/custom.css">
+  <link rel="stylesheet" type="text/css" href="/WECAN/assets/grocery_crud/css/ui/bootstrap.min.css">
+  <script src="/WECAN/assets/grocery_crud/js/jquery-1.10.2.min.js"></script>
+  <script src="/WECAN/assets/grocery_crud/js/bootstrap.min.js"></script>
 </head>
 <body>
   <div>
