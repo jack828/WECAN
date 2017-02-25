@@ -102,7 +102,7 @@ class Main extends CI_Controller {
           ->display_as('eliminated', 'Eliminated');
 
     $crud->unset_delete();
-    $crud->add_action('Eliminate', '', '', 'ui-icon-circle-minus', array($this, 'eliminate_team_url'));
+    $crud->add_action('Eliminate', '', '', 'fa-minus-circle', array($this, 'eliminate_team_url'));
 
     $output = $crud->render();
 
@@ -233,7 +233,7 @@ class Main extends CI_Controller {
 
     $crud->callback_after_insert(array($this, 'insert_competitor_callback'));
     $crud->unset_delete();
-    $crud->add_action('Eliminate', '', '', 'ui-icon-circle-minus', array($this, 'eliminate_competitor_url'));
+    $crud->add_action('Eliminate', '', '', 'fa-minus-circle', array($this, 'eliminate_competitor_url'));
 
     $output = $crud->render();
 
@@ -273,7 +273,7 @@ class Main extends CI_Controller {
                 ->display_as('cardStateID', 'Card State');
 
       $cardCrud->unset_operations();
-      $cardCrud->add_action('Unauthorise/Lost/Stolen', '', '', 'ui-icon-circle-minus', array($this, 'unauthorise_card_url'));
+      $cardCrud->add_action('Unauthorise/Lost/Stolen', '', '', 'fa-minus-circle', array($this, 'unauthorise_card_url'));
 
       $state_code = 1; // List state
       $cards = $cardCrud->render($state_code);
@@ -432,7 +432,7 @@ class Main extends CI_Controller {
     $crud->unset_delete();
     $crud->unset_edit();
     $crud->unset_add();
-    $crud->add_action('Unauthorise/Lost/Stolen', '', '', 'ui-icon-circle-minus', array($this, 'unauthorise_card_url'));
+    $crud->add_action('Unauthorise/Lost/Stolen', '', '', 'fa-minus-circle', array($this, 'unauthorise_card_url'));
 
     $output = $crud->render();
     $this->cards_output($output);
