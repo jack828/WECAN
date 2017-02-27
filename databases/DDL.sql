@@ -7,7 +7,7 @@ CREATE TABLE team (	ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 					);
 
 CREATE TABLE competitorTitle (	ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-								title VARCHAR(2)
+								title VARCHAR(2) NOT NULL
                                 );
 
 CREATE TABLE competitor (	ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -15,19 +15,19 @@ CREATE TABLE competitor (	ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 							fullName VARCHAR(255) NOT NULL,
 							role VARCHAR (255) NOT NULL,
                             teamID INT NOT NULL,
-                            authorised BOOL DEFAULT TRUE,
+                            authorised BOOL NOT NULL DEFAULT TRUE,
                             FOREIGN KEY (titleID) REFERENCES competitorTitle(ID),
                             FOREIGN KEY (teamID) REFERENCES team(ID)
 							); 
 
 CREATE TABLE cardState (ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-						state VARCHAR(16)
+						state VARCHAR(16) NOT NULL
                         );
                         
 CREATE TABLE card (	ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 					competitorID INT NOT NULL,
-                    startDate DATE,
-                    endDate DATE,
+                    startDate DATE NOT NULL,
+                    endDate DATE NOT NULL,
                     cardStateID INT NOT NULL DEFAULT 1,
 					FOREIGN KEY (competitorID) REFERENCES competitor(ID),
                     FOREIGN KEY (cardStateID) REFERENCES cardState(ID)
@@ -41,7 +41,7 @@ CREATE TABLE venue (ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 -- relation matchAccess provides venue permissions for teams 
 -- primary key is natural (match number), not auto-incrementing                   
 CREATE TABLE matchAccess (	ID INT NOT NULL PRIMARY KEY,
-							matchDate DATE,
+							matchDate DATE NOT NULL,
                             venueID INT NOT NULL,
 							team1ID INT NOT NULL,
 							team2ID INT NOT NULL,
@@ -54,8 +54,8 @@ CREATE TABLE matchAccess (	ID INT NOT NULL PRIMARY KEY,
 CREATE TABLE venueUsage (	ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 							cardID INT NOT NULL,
                             venueID INT NOT NULL,
-                            dateAccessed DATE,
-                            accessGranted BOOL,
+                            dateAccessed DATE NOT NULL,
+                            accessGranted BOOL NOT NULL,
                             FOREIGN KEY (cardID) REFERENCES card(ID),
                             FOREIGN KEY (venueID) REFERENCES venue(ID)
                             );
