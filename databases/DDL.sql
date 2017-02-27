@@ -7,7 +7,7 @@ CREATE TABLE team (	ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 					);
 
 CREATE TABLE competitorTitle (	ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-								title VARCHAR(2) NOT NULL
+								title VARCHAR(8) NOT NULL
                                 );
 
 CREATE TABLE competitor (	ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
