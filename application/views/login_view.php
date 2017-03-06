@@ -15,9 +15,9 @@
     <link href="/WECAN/assets/gentelella/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- Animate.css -->
     <link href="/WECAN/assets/gentelella/vendors/animate.css/animate.min.css" rel="stylesheet">
-
     <!-- Custom Theme Style -->
     <link href="/WECAN/assets/gentelella/build/css/custom.min.css" rel="stylesheet">
+    <link href="/WECAN/assets/grocery_crud/css/custom.css" rel="stylesheet" type="text/css">
   </head>
 
   <body class="login">
