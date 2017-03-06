@@ -401,6 +401,7 @@ class Main extends CI_Controller {
     }
 
     $this->venues_output($output);
+    $this->load->view('footer');
   }
 
   public function venues_output($output = null) {

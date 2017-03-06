@@ -1,26 +1,34 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8" />
 <?php
 foreach($css_files as $file): ?>
   <link type="text/css" rel="stylesheet" href="<?php echo $file; ?>" />
 <?php endforeach; ?>
+
 <?php foreach($js_files as $file): ?>
   <script src="<?php echo $file; ?>"></script>
 <?php endforeach; ?>
-</head>
-<body>
 
-  <h1 class="center">Venues</h1>
-  <div>
-    <?php echo $output; ?>
-  </div>
-  <?php if(isset($accessLogs)): ?>
-    <h2 class="center">Access Logs</h2>
-    <div>
-    <?php echo $accessLogs->output; ?>
+<div class="right_col" role="main">
+  <div class="">
+    <div class="x_panel">
+      <div class="x_title">
+        <h1>Venues</h2>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <?php echo $output; ?>
+      </div>
     </div>
-  <?php endif; ?>
-</body>
-</html>
+
+    <?php if(isset($accessLogs)): ?>
+    <div class="x_panel">
+      <div class="x_title">
+        <h1>Access Logs</h2>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <?php echo $accessLogs->output; ?>
+      </div>
+    </div>
+    <?php endif; ?>
+  </div>
+</div>
