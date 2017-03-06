@@ -21,3 +21,9 @@
   font-size: 3em;
   margin-bottom: 0;
 }
+
+.btn-white {
+  color: black;
+  background-color: white;
+  border-color: #95a5a6;
+}

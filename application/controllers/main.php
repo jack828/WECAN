@@ -19,6 +19,7 @@ class Main extends CI_Controller {
     }
     $this->load->view('header', $userData);
     $this->load->view('home');
+    $this->load->view('footer');
 	}
 
   function ensure_logged_in() {
@@ -68,6 +69,7 @@ class Main extends CI_Controller {
 
     $output = $crud->render();
     $this->matches_output($output);
+    $this->load->view('footer');
   }
 
   public function matches_output($output = null) {
