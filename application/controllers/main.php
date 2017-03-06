@@ -441,6 +441,7 @@ class Main extends CI_Controller {
 
     $output = $crud->render();
     $this->cards_output($output);
+    $this->load->view('footer');
   }
 
   public function unauthorise_card_url($primary_key, $row) {
