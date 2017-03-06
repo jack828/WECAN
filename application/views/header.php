@@ -19,6 +19,7 @@
     <link href="/WECAN/assets/gentelella/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
     <!-- Custom Theme Style -->
     <link href="/WECAN/assets/gentelella/build/css/custom.css" rel="stylesheet">
+    <link href="/WECAN/assets/grocery_crud/css/custom.css" rel="stylesheet" type="text/css">
 
     <!-- jQuery -->
     <script src="/WECAN/assets/gentelella/vendors/jquery/dist/jquery.min.js"></script>

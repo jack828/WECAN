@@ -32,3 +32,16 @@ input#username, input#password {
   width: 90% !important;
   margin-left: 5% !important;
 }
+
+ul.nav.navbar-nav.navbar-right > li {
+  min-width: 175px;
+}
+
+ul.nav.navbar-nav.navbar-right > li ul {
+  width: 100% !important;
+}
+
+ul.nav.navbar-nav.navbar-right > li a {
+  text-align: center;
+}
+
