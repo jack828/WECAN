@@ -64,9 +64,9 @@
 					<button class="btn btn-xs floatR refresh-data" role="button" data-url="<?php echo $ajax_list_url; ?>">
 						<i class="ui-button-icon-primary fa fa-refresh"></i>
 					</button>
-					<a href="javascript:void(0)" role="button" class="clear-filtering ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary floatR">
-						<span class="ui-button-icon-primary ui-icon ui-icon-arrowrefresh-1-e"></span>
-						<span class="ui-button-text"><?php echo $this->l('list_clear_filtering');?></span>
+					<a href="javascript:void(0)" role="button" class="clear-filtering btn btn-xs floatR">
+						<i class="fa fa-repeat"></i>
+						<?php echo $this->l('list_clear_filtering');?>
 					</a>
 				</th>
 			<?php }?>
