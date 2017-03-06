@@ -290,6 +290,7 @@ class Main extends CI_Controller {
       $output->css_files = array_merge($cards->css_files, $output->css_files);
     }
     $this->competitors_output($output);
+    $this->load->view('footer');
   }
 
   public function start_date_callback() {
