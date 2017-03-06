@@ -111,7 +111,7 @@
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
                     <li>
-                      <a href="login.html">
+                      <a href="<?php echo site_url('main/logout')?>">
                         <i class="fa fa-sign-out pull-right"></i> Log Out
                       </a>
                     </li>
