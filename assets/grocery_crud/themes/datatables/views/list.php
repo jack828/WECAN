@@ -61,9 +61,8 @@
 			<?php }?>
 			<?php if(!$unset_delete || !$unset_edit || !$unset_read || !empty($actions)){?>
 				<th>
-					<button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only floatR refresh-data" role="button" data-url="<?php echo $ajax_list_url; ?>">
-						<span class="ui-button-icon-primary ui-icon ui-icon-refresh"></span>
-            <span class="ui-button-text">&nbsp;</span>
+					<button class="btn btn-xs floatR refresh-data" role="button" data-url="<?php echo $ajax_list_url; ?>">
+						<i class="ui-button-icon-primary fa fa-refresh"></i>
 					</button>
 					<a href="javascript:void(0)" role="button" class="clear-filtering ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary floatR">
 						<span class="ui-button-icon-primary ui-icon ui-icon-arrowrefresh-1-e"></span>
