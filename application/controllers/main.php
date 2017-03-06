@@ -184,6 +184,7 @@ class Main extends CI_Controller {
     }
 
     $this->teams_output($output);
+    $this->load->view('footer');
   }
 
   public function eliminate_team_url($primary_key) {
