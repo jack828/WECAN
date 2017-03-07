@@ -17,38 +17,40 @@
 			<?php }?>
 			<?php if(!$unset_delete || !$unset_edit || !$unset_read || !empty($actions)){?>
 			<td class='actions'>
-				<?php // Custom buttons
-				if(!empty($row->action_urls)){
-					foreach($row->action_urls as $action_unique_id => $action_url){
-						$action = $actions[$action_unique_id];
-				?>
-						<a href="<?php echo $action_url; ?>" class="edit_button btn btn-xs btn-danger" role="button">
-							<span class="fa <?php echo $action->css_class; ?> <?php echo $action_unique_id;?>"></span>
-              &nbsp;<?php echo $action->label; ?>
-						</a>
-				<?php }
-				}
-				?>
-				<?php if(!$unset_read){?>
-					<a href="<?php echo $row->read_url?>" class="edit_button btn btn-xs btn-dark" role="button">
-						<span class="fa fa-eye"></span>
-						&nbsp;<?php echo $this->l('list_view'); ?>
-					</a>
-				<?php }?>
+        <div class="actions-container">
+  				<?php // Custom buttons
+  				if(!empty($row->action_urls)){
+  					foreach($row->action_urls as $action_unique_id => $action_url){
+  						$action = $actions[$action_unique_id];
+  				?>
+  						<a href="<?php echo $action_url; ?>" class="edit_button btn btn-xs btn-danger" role="button">
+  							<span class="fa <?php echo $action->css_class; ?> <?php echo $action_unique_id;?>"></span>
+                &nbsp;<?php echo $action->label; ?>
+  						</a>
+  				<?php }
+  				}
+  				?>
+  				<?php if(!$unset_read){?>
+  					<a href="<?php echo $row->read_url?>" class="edit_button btn btn-xs btn-dark" role="button">
+  						<span class="fa fa-eye"></span>
+  						&nbsp;<?php echo $this->l('list_view'); ?>
+  					</a>
+  				<?php }?>
 
-				<?php if(!$unset_edit){?>
-					<a href="<?php echo $row->edit_url?>" class="edit_button btn btn-xs btn-dark" role="button">
-						<span class="fa fa-pencil"></span>
-						&nbsp;<?php echo $this->l('list_edit'); ?>
-					</a>
-				<?php }?>
-				<?php if(!$unset_delete){?>
-					<a onclick = "javascript: return delete_row('<?php echo $row->delete_url?>', '<?php echo $num_row?>')"
-						href="javascript:void(0)" class="delete_button btn btn-xs btn-danger" role="button">
-						<span class="fa fa-trash"></span>
-						&nbsp;<?php echo $this->l('list_delete'); ?>
-					</a>
-				<?php }?>
+  				<?php if(!$unset_edit){?>
+  					<a href="<?php echo $row->edit_url?>" class="edit_button btn btn-xs btn-dark" role="button">
+  						<span class="fa fa-pencil"></span>
+  						&nbsp;<?php echo $this->l('list_edit'); ?>
+  					</a>
+  				<?php }?>
+  				<?php if(!$unset_delete){?>
+  					<a onclick = "javascript: return delete_row('<?php echo $row->delete_url?>', '<?php echo $num_row?>')"
+  						href="javascript:void(0)" class="delete_button btn btn-xs btn-danger" role="button">
+  						<span class="fa fa-trash"></span>
+  						&nbsp;<?php echo $this->l('list_delete'); ?>
+  					</a>
+  				<?php }?>
+        </div>
 			</td>
 			<?php }?>
 		</tr>

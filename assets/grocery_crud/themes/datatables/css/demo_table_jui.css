@@ -222,7 +222,9 @@ table.display td.center {
 	text-align: center;
 }
 
-
+.actions-container {
+  display: inline-block;
+}
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables sorting
