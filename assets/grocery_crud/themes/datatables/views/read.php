@@ -48,7 +48,7 @@
 
       <div class="form-group">
         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-          <input role='button' type='button' value='<?php echo $this->l('form_back_to_list'); ?>' class='btn btn-primary' id="cancel-button" />
+          <input role='button' type='button' value='<?php echo $this->l('form_back_to_list'); ?>' class='btn btn-primary back-to-list' id="cancel-button" />
         </div>
       </div>
     </form>
