@@ -97,7 +97,7 @@
       buttons: [
       <?php if (!$unset_add) { ?>
         { text: '<i class="fa fa-plus-circle"></i> <?php echo $this->l('list_add'); ?> <?php echo $subject; ?>',
-          className: 'btn-sm',
+          className: 'btn-sm btn-lightgrey',
           action: function () {
             window.location.href = '<?php echo $add_url; ?>'
           }
@@ -105,12 +105,12 @@
       <?php } ?>
       <?php if (!$unset_export) { ?>
         { extend: 'csv',
-          className: 'btn-sm'
+          className: 'btn-sm btn-lightgrey'
         },
       <?php } ?>
       <?php if (!$unset_print) { ?>
         { extend: 'print',
-          className: 'btn-sm'
+          className: 'btn-sm btn-lightgrey'
         },
       <?php } ?>
         // { className: 'hidden' }

@@ -404,8 +404,13 @@ table.display tr.odd.row_selected td {
 	background-color: #E6FF99;
 }
 
-.btn {
+.btn-grey {
   background: none !important;
   background-color: #989898 !important;
   color: #ededed !important;
+}
+
+.btn-lightgrey {
+  color: #337ab7;
+  background: #ddd;
 }
