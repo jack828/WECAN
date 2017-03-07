@@ -115,6 +115,10 @@
       <?php } ?>
         // { className: 'hidden' }
       ],
+      language: {
+        search: ''
+      , searchPlaceholder: 'Search all records...'
+      },
       responsive: true,
       sPaginationType: 'full_numbers',
       bStateSave: use_storage,
