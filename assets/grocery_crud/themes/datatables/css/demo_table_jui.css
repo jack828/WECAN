@@ -156,6 +156,12 @@ table.display thead th div.DataTables_sort_wrapper span {
   .dataTables_filter {
     width: 100%;
   }
+  .dataTables_info {
+    width: 100% !important;
+  }
+  .dataTables_paginate {
+    width: 100% !important;
+  }
 }
 
 .dataTables_info {
