@@ -3,8 +3,6 @@
   $this->set_css($this->default_theme_path.'/datatables/css/demo_table_jui.css');
   $this->set_css($this->default_css_path.'/ui/simple/'.grocery_CRUD::JQUERY_UI_CSS);
   $this->set_css($this->default_theme_path.'/datatables/css/datatables.css');
-  $this->set_css($this->default_theme_path.'/datatables/css/jquery.dataTables.css');
-  $this->set_css($this->default_theme_path.'/datatables/extras/TableTools/media/css/TableTools.css');
   $this->set_js_lib($this->default_javascript_path.'/'.grocery_CRUD::JQUERY);
 
   $this->set_js_lib($this->default_javascript_path.'/jquery_plugins/jquery.noty.js');
@@ -16,12 +14,25 @@
   }
 
   $this->set_js_lib($this->default_javascript_path.'/jquery_plugins/ui/'.grocery_CRUD::JQUERY_UI_JS);
-  $this->set_js_lib($this->default_theme_path.'/datatables/js/jquery.dataTables.min.js');
+
+  // Datatables
+  $this->set_css('assets/gentelella/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css');
+  $this->set_css('assets/gentelella/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css');
+  $this->set_css('assets/gentelella/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css');
+  $this->set_css('assets/gentelella/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css');
+  // Datatables
+  $this->set_js_lib('assets/gentelella/vendors/datatables.net/js/jquery.dataTables.min.js');
+  $this->set_js('assets/gentelella/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js');
   $this->set_js($this->default_theme_path.'/datatables/js/datatables-extras.js');
   $this->set_js($this->default_theme_path.'/datatables/js/datatables.js');
-  $this->set_js($this->default_theme_path.'/datatables/extras/TableTools/media/js/ZeroClipboard.js');
-  $this->set_js($this->default_theme_path.'/datatables/extras/TableTools/media/js/TableTools.min.js');
-
+  $this->set_js('assets/gentelella/vendors/datatables.net-buttons/js/dataTables.buttons.min.js');
+  $this->set_js('assets/gentelella/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js');
+  $this->set_js('assets/gentelella/vendors/datatables.net-buttons/js/buttons.html5.min.js');
+  $this->set_js('assets/gentelella/vendors/datatables.net-buttons/js/buttons.print.min.js');
+  $this->set_js('assets/gentelella/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js');
+  $this->set_js('assets/gentelella/vendors/datatables.net-responsive/js/dataTables.responsive.min.js');
+  $this->set_js('assets/gentelella/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js');
+  $this->set_js('assets/gentelella/vendors/datatables.net-scroller/js/dataTables.scroller.min.js');
   /** Fancybox */
   $this->set_css($this->default_css_path.'/jquery_plugins/fancybox/jquery.fancybox.css');
   $this->set_js($this->default_javascript_path.'/jquery_plugins/jquery.fancybox-1.3.4.js');
@@ -77,6 +88,44 @@
 
   var datatables_aaSorting = [[ <?php echo $ordering; ?>, "<?php echo $sorting;?>" ]];
 
+  $(document).on('ready', function () {
+    var table = '#' + unique_hash
+    // Do not reinitialise (problem exists on multi-table views)
+    if ($.fn.DataTable.isDataTable(table)) return
+    $(table).DataTable({
+      dom: 'Bfrtip',
+      buttons: [
+      <?php if (!$unset_add) { ?>
+        { text: '<i class="fa fa-plus-circle"></i> <?php echo $this->l('list_add'); ?> <?php echo $subject; ?>',
+          className: 'btn-sm',
+          action: function () {
+            window.location.href = '<?php echo $add_url; ?>'
+          }
+        },
+      <?php } ?>
+      <?php if (!$unset_export) { ?>
+        { extend: 'csv',
+          className: 'btn-sm'
+        },
+      <?php } ?>
+      <?php if (!$unset_print) { ?>
+        { extend: 'print',
+          className: 'btn-sm'
+        },
+      <?php } ?>
+        // { className: 'hidden' }
+      ],
+      responsive: true,
+      sPaginationType: 'full_numbers',
+      bStateSave: use_storage,
+      fnStateSave: function (oSettings, oData) {
+        localStorage.setItem('DataTables_' + unique_hash, JSON.stringify(oData));
+      },
+      fnStateLoad: function (oSettings) {
+        return JSON.parse(localStorage.getItem('DataTables_' + unique_hash));
+      }
+    })
+  })
 </script>
 <?php
   if(!empty($actions)){
@@ -93,27 +142,13 @@
 <?php
   }
 ?>
-<?php if($unset_export && $unset_print){?>
-  <style type="text/css">
-    .datatables-add-button {
-      position: static !important;
-    }
-  </style>
-<?php }?>
 <div id='list-report-error' class='report-div error report-list'></div>
 <div id='list-report-success' class='report-div success report-list' <?php if($success_message !== null){?>style="display:block"<?php }?>><?php
  if($success_message !== null){?>
   <p><?php echo $success_message; ?></p>
 <?php }
 ?></div>
-<?php if(!$unset_add){?>
-<div class="datatables-add-button">
-<a role="button" class="add_button btn btn-xs" href="<?php echo $add_url?>">
-  <i class="fa fa-plus-circle"></i>
-  <?php echo $this->l('list_add'); ?> <?php echo $subject?>
-</a>
-</div>
-<?php }?>
+
 <div style='height:10px;'></div>
 <div class="dataTablesContainer">
   <?php echo $list_view?>
