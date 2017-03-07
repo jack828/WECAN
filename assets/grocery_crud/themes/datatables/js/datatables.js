@@ -168,11 +168,11 @@ function delete_row (delete_url, row_id){
         if (data.success) {
           success_message(data.success_message);
 
-          chosen_table = datatables_get_chosen_table($('tr#row-' + row_id).closest('.groceryCrudTable'));
+          var chosen_table = $('tr#row-' + row_id).closest('table').DataTable()
+            , row = chosen_table.row('#row-' + row_id);
 
-          $('tr#row-' + row_id).addClass('row_selected');
-          var anSelected = fnGetSelected(chosen_table);
-          chosen_table.fnDeleteRow(anSelected[0]);
+          row.remove();
+          chosen_table.draw();
         } else {
           error_message(data.error_message);
         }
