@@ -49,8 +49,10 @@
       <div class="form-group">
         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
         <?php if(!$this->unset_back_to_list) { ?>
-          <input role='button' type='button' value='<?php echo $this->l('form_save_and_go_back'); ?>' class='btn btn-primary' id="save-and-go-back-button"/>
-          <input role='button' type='button' value='<?php echo $this->l('form_cancel'); ?>' class='btn btn-primary' id="cancel-button" />
+          <div id="buttons">
+            <input role='button' type='button' value='<?php echo $this->l('form_save_and_go_back'); ?>' class='btn btn-primary' id="save-and-go-back-button"/>
+            <input role='button' type='button' value='<?php echo $this->l('form_cancel'); ?>' class='btn btn-primary' id="cancel-button" />
+          </div>
         <?php } ?>
           <div class='form-button-box loading-box'>
             <div class='small-loading' id='FormLoading'><?php echo $this->l('form_insert_loading'); ?></div>

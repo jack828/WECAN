@@ -22,7 +22,9 @@ $(function(){
       url: validation_url,
       dataType: 'json',
       beforeSend: function () {
+        $("#buttons").hide();
         $("#FormLoading").show();
+
       },
       success: function (data) {
         $("#FormLoading").hide();
@@ -60,6 +62,7 @@ $(function(){
             }
           });
         } else {
+          $("#buttons").show();
           $('.field_error').removeClass('field_error');
           form_error_message(data.error_message);
           $.each(data.error_fields, function (index, value) {
