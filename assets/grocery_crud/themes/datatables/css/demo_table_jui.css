@@ -152,6 +152,12 @@ table.display thead th div.DataTables_sort_wrapper span {
 	text-align: right;
 }
 
+@media (max-width: 750px) {
+  .dataTables_filter {
+    width: 100%;
+  }
+}
+
 .dataTables_info {
 	width: 50%;
 	float: left;
