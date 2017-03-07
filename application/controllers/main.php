@@ -360,6 +360,8 @@ class Main extends CI_Controller {
     $crud->set_subject('Venue');
     $crud->fields('venueName', 'stadium');
 
+    $crud->required_fields('venueName', 'stadium');
+
     $crud->display_as('venueName', 'Venue Name')
           ->display_as('stadium', 'Stadium');
 
