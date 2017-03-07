@@ -5,7 +5,7 @@
         <h1>WECAN System Home</h2>
         <div class="clearfix"></div>
       </div>
-      <div class="x_content">
+      <div class="x_content center">
         <p>Welcome to the WECAN System.</p>
         <p>Use the links in the sidebar to nagivate.</p>
         <img id="cogs" src="/WECAN/assets/images/cogs.jpg" alt="Cogs and gears" height="130" width="190">
