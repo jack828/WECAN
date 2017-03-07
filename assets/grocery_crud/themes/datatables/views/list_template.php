@@ -125,6 +125,24 @@
         return JSON.parse(localStorage.getItem('DataTables_' + unique_hash));
       }
     })
+
+    $('th.actions').unbind('click').removeClass('sorting')
+
+    $(table).find('tfoot').find('input').on('keyup', function () {
+      var dataTable = $(table).DataTable()
+
+      dataTable.columns().every(function () {
+        var that = this
+
+        $('input', this.footer()).on('keyup change', function () {
+          if (that.search() !== this.value) {
+            that
+              .search(this.value)
+              .draw()
+          }
+        })
+      })
+    })
   })
 </script>
 <?php
