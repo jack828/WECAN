@@ -1,32 +1,46 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8" />
 <?php
 foreach($css_files as $file): ?>
   <link type="text/css" rel="stylesheet" href="<?php echo $file; ?>" />
 <?php endforeach; ?>
+
 <?php foreach($js_files as $file): ?>
   <script src="<?php echo $file; ?>"></script>
 <?php endforeach; ?>
-</head>
-<body>
 
-  <h1 class="center">Teams</h1>
-  <div>
-    <?php echo $output; ?>
+<div class="right_col" role="main">
+  <div class="">
+    <div class="x_panel">
+      <div class="x_title">
+        <h1>Teams</h2>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <?php echo $output; ?>
+      </div>
+    </div>
+
+    <?php if(isset($competitors)): ?>
+    <div class="x_panel">
+      <div class="x_title">
+        <h1>Competitors</h2>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <?php echo $competitors->output; ?>
+      </div>
+    </div>
+    <?php endif; ?>
+
+    <?php if(isset($matches)): ?>
+    <div class="x_panel">
+      <div class="x_title">
+        <h1>Matches</h2>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <?php echo $matches->output; ?>
+      </div>
+    </div>
+    <?php endif; ?>
   </div>
-  <?php if(isset($competitors)): ?>
-    <h2 class="center">Competitors</h2>
-    <div>
-    <?php echo $competitors->output; ?>
-    </div>
-  <?php endif; ?>
-  <?php if(isset($matches)): ?>
-    <h2 class="center">Matches</h2>
-    <div>
-    <?php echo $matches->output; ?>
-    </div>
-  <?php endif; ?>
-</body>
-</html>
+</div>

@@ -2041,6 +2041,13 @@ class grocery_CRUD_Layout extends grocery_CRUD_Model_Driver
 		$this->set_js_lib($this->default_javascript_path.'/jquery_plugins/jquery.chosen.min.js');
 	}
 
+  protected function load_js_select2()
+  {
+    $this->set_css('assets/gentelella/vendors/select2/dist/css/select2.min.css');
+    $this->set_css('assets/gentelella/vendors/select2/dist/css/select2.bootstrap.min.css');
+    $this->set_js_lib('assets/gentelella/vendors/select2/dist/js/select2.min.js');
+  }
+
 	protected function load_js_jqueryui()
 	{
 		$this->set_css($this->default_css_path.'/ui/simple/'.grocery_CRUD::JQUERY_UI_CSS);
@@ -2147,7 +2154,7 @@ class grocery_CRUD_Layout extends grocery_CRUD_Model_Driver
 		$extra_attributes = '';
 		if(!empty($field_info->db_max_length))
 			$extra_attributes .= "maxlength='{$field_info->db_max_length}'";
-		$input = "<input id='field-{$field_info->name}' name='{$field_info->name}' type='text' value='$value' class='numeric' $extra_attributes />";
+		$input = "<input id='field-{$field_info->name}' name='{$field_info->name}' type='text' value='$value' class='numeric form-control' $extra_attributes />";
 		return $input;
 	}
 
@@ -2181,7 +2188,7 @@ class grocery_CRUD_Layout extends grocery_CRUD_Model_Driver
 		$extra_attributes = '';
 		if(!empty($field_info->db_max_length))
 			$extra_attributes .= "maxlength='{$field_info->db_max_length}'";
-		$input = "<input id='field-{$field_info->name}' name='{$field_info->name}' type='text' value=\"$value\" $extra_attributes />";
+		$input = "<input class='form-control' id='field-{$field_info->name}' name='{$field_info->name}' type='text' value=\"$value\" $extra_attributes />";
 		return $input;
 	}
 
@@ -2315,19 +2322,19 @@ class grocery_CRUD_Layout extends grocery_CRUD_Model_Driver
 			$date = '';
 		}
 
-		$input = "<input id='field-{$field_info->name}' name='{$field_info->name}' type='text' value='$date' maxlength='10' class='datepicker-input' />
-		<a class='datepicker-input-clear' tabindex='-1'>".$this->l('form_button_clear')."</a> (".$this->ui_date_format.")";
+		$input = "<input id='field-{$field_info->name}' name='{$field_info->name}' type='text' value='$date' maxlength='10' class='datepicker-input form-control' />
+		(".$this->ui_date_format.")";
 		return $input;
 	}
 
 	protected function get_dropdown_input($field_info,$value)
 	{
-		$this->load_js_chosen();
-		$this->set_js_config($this->default_javascript_path.'/jquery_plugins/config/jquery.chosen.config.js');
+		$this->load_js_select2();
+		$this->set_js_config($this->default_javascript_path.'/jquery_plugins/config/jquery.select2.config.js');
 
 		$select_title = str_replace('{field_display_as}',$field_info->display_as,$this->l('set_relation_title'));
 
-		$input = "<select id='field-{$field_info->name}' name='{$field_info->name}' class='chosen-select' data-placeholder='".$select_title."'>";
+		$input = "<select id='field-{$field_info->name}' name='{$field_info->name}' class='select2-select form-control' data-placeholder='".$select_title."'>";
 		$options = array('' => '') + $field_info->extras;
 		foreach($options as $option_value => $option_label)
 		{
@@ -2341,12 +2348,12 @@ class grocery_CRUD_Layout extends grocery_CRUD_Model_Driver
 
 	protected function get_enum_input($field_info,$value)
 	{
-		$this->load_js_chosen();
-		$this->set_js_config($this->default_javascript_path.'/jquery_plugins/config/jquery.chosen.config.js');
+		$this->load_js_select2();
+		$this->set_js_config($this->default_javascript_path.'/jquery_plugins/config/jquery.select2.config.js');
 
 		$select_title = str_replace('{field_display_as}',$field_info->display_as,$this->l('set_relation_title'));
 
-		$input = "<select id='field-{$field_info->name}' name='{$field_info->name}' class='chosen-select' data-placeholder='".$select_title."'>";
+		$input = "<select id='field-{$field_info->name}' name='{$field_info->name}' class='select2-select form-control' data-placeholder='".$select_title."'>";
 		$options_array = $field_info->extras !== false && is_array($field_info->extras)? $field_info->extras : explode("','",substr($field_info->db_max_length,1,-1));
 		$options_array = array('' => '') + $options_array;
 
@@ -2396,16 +2403,16 @@ class grocery_CRUD_Layout extends grocery_CRUD_Model_Driver
 		return $input;
 	}
 
-	protected function get_multiselect_input($field_info,$value)
+  protected function get_multiselect_input($field_info,$value)
 	{
-		$this->load_js_chosen();
-		$this->set_js_config($this->default_javascript_path.'/jquery_plugins/config/jquery.chosen.config.js');
+		$this->load_js_select2();
+		$this->set_js_config($this->default_javascript_path.'/jquery_plugins/config/jquery.select2.config.js');
 
 		$options_array = $field_info->extras;
 		$selected_values 	= !empty($value) ? explode(",",$value) : array();
 
 		$select_title = str_replace('{field_display_as}',$field_info->display_as,$this->l('set_relation_title'));
-		$input = "<select id='field-{$field_info->name}' name='{$field_info->name}[]' multiple='multiple' size='8' class='chosen-multiple-select' data-placeholder='$select_title' style='width:510px;' >";
+		$input = "<select id='field-{$field_info->name}' name='{$field_info->name}[]' multiple='multiple' size='8' class='select2-multiple-select' data-placeholder='$select_title' style='width:510px;' >";
 
 		foreach($options_array as $option_value => $option_label)
 		{
@@ -2420,8 +2427,8 @@ class grocery_CRUD_Layout extends grocery_CRUD_Model_Driver
 
 	protected function get_relation_input($field_info,$value)
 	{
-		$this->load_js_chosen();
-		$this->set_js_config($this->default_javascript_path.'/jquery_plugins/config/jquery.chosen.config.js');
+		$this->load_js_select2();
+		$this->set_js_config($this->default_javascript_path.'/jquery_plugins/config/jquery.select2.config.js');
 
 		$ajax_limitation = 10000;
 		$total_rows = $this->get_relation_total_rows($field_info->extras);
@@ -2434,7 +2441,7 @@ class grocery_CRUD_Layout extends grocery_CRUD_Model_Driver
 		$using_ajax = false;
 
 		//If total rows are more than the limitation, use the ajax plugin
-		$ajax_or_not_class = $using_ajax ? 'chosen-select' : 'chosen-select';
+		$ajax_or_not_class = $using_ajax ? 'select2-select' : 'select2-select';
 
 		$this->_inline_js("var ajax_relation_url = '".$this->getAjaxRelationUrl()."';\n");
 

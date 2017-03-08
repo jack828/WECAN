@@ -19,6 +19,7 @@ class Main extends CI_Controller {
     }
     $this->load->view('header', $userData);
     $this->load->view('home');
+    $this->load->view('footer');
 	}
 
   function ensure_logged_in() {
@@ -68,6 +69,7 @@ class Main extends CI_Controller {
 
     $output = $crud->render();
     $this->matches_output($output);
+    $this->load->view('footer');
   }
 
   public function matches_output($output = null) {
@@ -102,7 +104,7 @@ class Main extends CI_Controller {
           ->display_as('eliminated', 'Eliminated');
 
     $crud->unset_delete();
-    $crud->add_action('Eliminate', '', '', 'ui-icon-circle-minus', array($this, 'eliminate_team_url'));
+    $crud->add_action('Eliminate', '', '', 'fa-minus-circle', array($this, 'eliminate_team_url'));
 
     $output = $crud->render();
 
@@ -182,6 +184,7 @@ class Main extends CI_Controller {
     }
 
     $this->teams_output($output);
+    $this->load->view('footer');
   }
 
   public function eliminate_team_url($primary_key) {
@@ -233,7 +236,7 @@ class Main extends CI_Controller {
 
     $crud->callback_after_insert(array($this, 'insert_competitor_callback'));
     $crud->unset_delete();
-    $crud->add_action('Eliminate', '', '', 'ui-icon-circle-minus', array($this, 'eliminate_competitor_url'));
+    $crud->add_action('Eliminate', '', '', 'fa-minus-circle', array($this, 'eliminate_competitor_url'));
 
     $output = $crud->render();
 
@@ -273,7 +276,7 @@ class Main extends CI_Controller {
                 ->display_as('cardStateID', 'Card State');
 
       $cardCrud->unset_operations();
-      $cardCrud->add_action('Unauthorise/Lost/Stolen', '', '', 'ui-icon-circle-minus', array($this, 'unauthorise_card_url'));
+      $cardCrud->add_action('Unauthorise/Lost/Stolen', '', '', 'fa-minus-circle', array($this, 'unauthorise_card_url'));
 
       $state_code = 1; // List state
       $cards = $cardCrud->render($state_code);
@@ -287,6 +290,7 @@ class Main extends CI_Controller {
       $output->css_files = array_merge($cards->css_files, $output->css_files);
     }
     $this->competitors_output($output);
+    $this->load->view('footer');
   }
 
   public function start_date_callback() {
@@ -356,6 +360,8 @@ class Main extends CI_Controller {
     $crud->set_subject('Venue');
     $crud->fields('venueName', 'stadium');
 
+    $crud->required_fields('venueName', 'stadium');
+
     $crud->display_as('venueName', 'Venue Name')
           ->display_as('stadium', 'Stadium');
 
@@ -397,6 +403,7 @@ class Main extends CI_Controller {
     }
 
     $this->venues_output($output);
+    $this->load->view('footer');
   }
 
   public function venues_output($output = null) {
@@ -432,10 +439,11 @@ class Main extends CI_Controller {
     $crud->unset_delete();
     $crud->unset_edit();
     $crud->unset_add();
-    $crud->add_action('Unauthorise/Lost/Stolen', '', '', 'ui-icon-circle-minus', array($this, 'unauthorise_card_url'));
+    $crud->add_action('Unauthorise/Lost/Stolen', '', '', 'fa-minus-circle', array($this, 'unauthorise_card_url'));
 
     $output = $crud->render();
     $this->cards_output($output);
+    $this->load->view('footer');
   }
 
   public function unauthorise_card_url($primary_key, $row) {

@@ -1,26 +1,34 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8" />
 <?php
 foreach($css_files as $file): ?>
   <link type="text/css" rel="stylesheet" href="<?php echo $file; ?>" />
 <?php endforeach; ?>
+
 <?php foreach($js_files as $file): ?>
   <script src="<?php echo $file; ?>"></script>
 <?php endforeach; ?>
-</head>
-<body>
 
-  <h1 class="center">Competitors</h1>
-  <div>
-    <?php echo $output; ?>
-  </div>
-  <?php if(isset($cards)): ?>
-    <h2 class="center">Cards</h2>
-    <div>
-    <?php echo $cards->output; ?>
+<div class="right_col" role="main">
+  <div class="">
+    <div class="x_panel">
+      <div class="x_title">
+        <h1>Competitors</h2>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <?php echo $output; ?>
+      </div>
     </div>
-  <?php endif; ?>
-</body>
-</html>
+
+    <?php if(isset($cards)): ?>
+    <div class="x_panel">
+      <div class="x_title">
+        <h1>Cards</h2>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <?php echo $cards->output; ?>
+      </div>
+    </div>
+    <?php endif; ?>
+  </div>
+</div>
