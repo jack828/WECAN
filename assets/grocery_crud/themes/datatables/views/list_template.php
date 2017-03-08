@@ -37,7 +37,7 @@
   $this->set_js($this->default_javascript_path.'/jquery_plugins/jquery.fancybox-1.3.4.js');
   $this->set_js($this->default_javascript_path.'/jquery_plugins/jquery.easing-1.3.pack.js');
 ?>
-<script type='text/javascript'>
+<script class="<?php echo uniqid(); ?>" type='text/javascript'>
   var base_url = '<?php echo base_url();?>';
   var subject = '<?php echo $subject?>';
 
@@ -88,61 +88,62 @@
   var datatables_aaSorting = [[ <?php echo $ordering; ?>, "<?php echo $sorting;?>" ]];
 
   $(document).on('ready', function () {
-    var table = '#' + unique_hash
-    // Do not reinitialise (problem exists on multi-table views)
-    if ($.fn.DataTable.isDataTable(table)) return
-    $(table).DataTable({
-      dom: 'Bfrtip',
-      buttons: [
-      <?php if (!$unset_add) { ?>
-        { text: '<i class="fa fa-plus-circle"></i> <?php echo $this->l('list_add'); ?> <?php echo $subject; ?>',
-          className: 'btn-sm btn-lightgrey',
-          action: function () {
-            window.location.href = '<?php echo $add_url; ?>'
-          }
+    $(document).find('table').each(function (i, table) {
+      // Do not reinitialise (problem exists on multi-table views)
+      if ($.fn.DataTable.isDataTable(table)) return
+      $(table).DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+        <?php if (!$unset_add) { ?>
+          { text: '<i class="fa fa-plus-circle"></i> <?php echo $this->l('list_add'); ?> <?php echo $subject; ?>',
+            className: 'btn-sm btn-lightgrey',
+            action: function () {
+              window.location.href = '<?php echo $add_url; ?>'
+            }
+          },
+        <?php } ?>
+        <?php if (!$unset_export) { ?>
+          { extend: 'csv',
+            className: 'btn-sm btn-lightgrey'
+          },
+        <?php } ?>
+        <?php if (!$unset_print) { ?>
+          { extend: 'print',
+            className: 'btn-sm btn-lightgrey'
+          },
+        <?php } ?>
+          // { className: 'hidden' }
+        ],
+        language: {
+          search: ''
+        , searchPlaceholder: 'Search all records...'
         },
-      <?php } ?>
-      <?php if (!$unset_export) { ?>
-        { extend: 'csv',
-          className: 'btn-sm btn-lightgrey'
+        responsive: true,
+        sPaginationType: 'full_numbers',
+        bStateSave: use_storage,
+        fnStateSave: function (oSettings, oData) {
+          localStorage.setItem('DataTables_' + unique_hash, JSON.stringify(oData));
         },
-      <?php } ?>
-      <?php if (!$unset_print) { ?>
-        { extend: 'print',
-          className: 'btn-sm btn-lightgrey'
-        },
-      <?php } ?>
-        // { className: 'hidden' }
-      ],
-      language: {
-        search: ''
-      , searchPlaceholder: 'Search all records...'
-      },
-      responsive: true,
-      sPaginationType: 'full_numbers',
-      bStateSave: use_storage,
-      fnStateSave: function (oSettings, oData) {
-        localStorage.setItem('DataTables_' + unique_hash, JSON.stringify(oData));
-      },
-      fnStateLoad: function (oSettings) {
-        return JSON.parse(localStorage.getItem('DataTables_' + unique_hash));
-      }
-    })
+        fnStateLoad: function (oSettings) {
+          return JSON.parse(localStorage.getItem('DataTables_' + unique_hash));
+        }
+      })
 
-    $('th.actions').unbind('click').removeClass('sorting')
+      $('th.actions').unbind('click').removeClass('sorting')
 
-    $(table).find('tfoot').find('input').on('keyup', function () {
-      var dataTable = $(table).DataTable()
+      $(table).find('tfoot').find('input').on('keyup', function () {
+        var dataTable = $(table).DataTable()
 
-      dataTable.columns().every(function () {
-        var that = this
+        dataTable.columns().every(function () {
+          var that = this
 
-        $('input', this.footer()).on('keyup change', function () {
-          if (that.search() !== this.value) {
-            that
-              .search(this.value)
-              .draw()
-          }
+          $('input', this.footer()).on('keyup change', function () {
+            if (that.search() !== this.value) {
+              that
+                .search(this.value)
+                .draw()
+            }
+          })
         })
       })
     })
