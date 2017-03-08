@@ -29,7 +29,6 @@
   $this->set_js('assets/gentelella/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js');
   $this->set_js('assets/gentelella/vendors/datatables.net-buttons/js/buttons.html5.min.js');
   $this->set_js('assets/gentelella/vendors/datatables.net-buttons/js/buttons.print.min.js');
-  $this->set_js('assets/gentelella/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js');
   $this->set_js('assets/gentelella/vendors/datatables.net-responsive/js/dataTables.responsive.min.js');
   $this->set_js('assets/gentelella/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js');
   $this->set_js('assets/gentelella/vendors/datatables.net-scroller/js/dataTables.scroller.min.js');
