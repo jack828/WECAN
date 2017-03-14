@@ -18,5 +18,17 @@ foreach($css_files as $file): ?>
         <?php echo $output; ?>
       </div>
     </div>
+
+    <?php if(isset($accessLogs)): ?>
+    <div class="x_panel">
+      <div class="x_title">
+        <h1>Access Logs</h2>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <?php echo $accessLogs->output; ?>
+      </div>
+    </div>
+    <?php endif; ?>
   </div>
 </div>

@@ -423,7 +423,7 @@ class Main extends CI_Controller {
     $crud->set_table('card');
 
     $crud->set_subject('Card');
-    $crud->fields('competitorID', 'startDate', 'endDate', 'cardStateID');
+    $crud->fields('ID', 'competitorID', 'startDate', 'endDate', 'cardStateID');
     $crud->add_fields('competitorID', 'startDate');
 
     $crud->set_relation('competitorID', 'competitor', 'fullName')
@@ -431,7 +431,8 @@ class Main extends CI_Controller {
 
     $crud->required_fields('competitorID');
 
-    $crud->display_as('competitorID', 'Competitor Name')
+    $crud->display_as('ID', 'Card ID')
+          ->display_as('competitorID', 'Competitor Name')
           ->display_as('startDate', 'Start Date')
           ->display_as('endDate', 'End Date')
           ->display_as('cardStateID', 'Card State');
@@ -442,6 +443,39 @@ class Main extends CI_Controller {
     $crud->add_action('Unauthorise/Lost/Stolen', '', '', 'fa-minus-circle', array($this, 'unauthorise_card_url'));
 
     $output = $crud->render();
+
+    if ($crud->getState() == 'read') {
+      // Get access logs
+      $cardID = $crud->getStateInfo()->primary_key;
+      $accessCrud = new grocery_CRUD();
+      $accessCrud->set_theme('datatables');
+
+      $accessCrud->set_table('venueUsage');
+      $accessCrud->where('cardID', $cardID);
+
+      $accessCrud->set_subject('Access Logs');
+      $accessCrud->columns('ID', 'venueID', 'dateAccessed', 'accessGranted');
+
+      $accessCrud->field_type('accessGranted', 'dropdown', array("0"  => "NO", "1" => "YES"));
+      $accessCrud->set_relation('venueID', 'venue', 'venueName');
+
+      $accessCrud->display_as('ID', 'Access Log ID');
+      $accessCrud->display_as('cardID', 'Card ID');
+      $accessCrud->display_as('venueID', 'Venue');
+      $accessCrud->unset_operations();
+
+      $state_code = 1; // List state
+      $accessLogs = $accessCrud->render($state_code);
+
+      // Add the output
+      $output->accessLogs = $accessLogs;
+      // Add access log styling
+      $output->js_files = array_merge($accessLogs->js_files, $output->js_files);
+      $output->js_lib_files = array_merge($accessLogs->js_lib_files, $output->js_lib_files);
+      $output->js_config_files = array_merge($accessLogs->js_config_files, $output->js_config_files);
+      $output->css_files = array_merge($accessLogs->css_files, $output->css_files);
+    }
+
     $this->cards_output($output);
     $this->load->view('footer');
   }
