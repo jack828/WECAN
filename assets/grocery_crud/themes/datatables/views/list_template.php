@@ -87,67 +87,6 @@
 
   var datatables_aaSorting = [[ <?php echo $ordering; ?>, "<?php echo $sorting;?>" ]];
 
-  $(document).on('ready', function () {
-    $(document).find('table').each(function (i, table) {
-      // Do not reinitialise (problem exists on multi-table views)
-      if ($.fn.DataTable.isDataTable(table)) return
-      $(table).DataTable({
-        dom: 'Bfrtip',
-        buttons: [
-        <?php if (!$unset_add) { ?>
-          { text: '<i class="fa fa-plus-circle"></i> <?php echo $this->l('list_add'); ?> <?php echo $subject; ?>',
-            className: 'btn-sm btn-lightgrey',
-            action: function () {
-              window.location.href = '<?php echo $add_url; ?>'
-            }
-          },
-        <?php } ?>
-        <?php if (!$unset_export) { ?>
-          { extend: 'csv',
-            className: 'btn-sm btn-lightgrey'
-          },
-        <?php } ?>
-        <?php if (!$unset_print) { ?>
-          { extend: 'print',
-            className: 'btn-sm btn-lightgrey'
-          },
-        <?php } ?>
-          // { className: 'hidden' }
-        ],
-        language: {
-          search: ''
-        , searchPlaceholder: 'Search all records...'
-        },
-        responsive: true,
-        sPaginationType: 'full_numbers',
-        bStateSave: use_storage,
-        fnStateSave: function (oSettings, oData) {
-          localStorage.setItem('DataTables_' + unique_hash, JSON.stringify(oData));
-        },
-        fnStateLoad: function (oSettings) {
-          return JSON.parse(localStorage.getItem('DataTables_' + unique_hash));
-        }
-      })
-
-      $('th.actions').unbind('click').removeClass('sorting')
-
-      $(table).find('tfoot').find('input').on('keyup', function () {
-        var dataTable = $(table).DataTable()
-
-        dataTable.columns().every(function () {
-          var that = this
-
-          $('input', this.footer()).on('keyup change', function () {
-            if (that.search() !== this.value) {
-              that
-                .search(this.value)
-                .draw()
-            }
-          })
-        })
-      })
-    })
-  })
 </script>
 <?php
   if(!empty($actions)){
@@ -172,6 +111,12 @@
 ?></div>
 
 <div style='height:10px;'></div>
-<div class="dataTablesContainer">
+<div class="dataTablesContainer"
+  data-unset-print="<?php echo $unset_print; ?>"
+  data-unset-export="<?php echo $unset_export; ?>"
+  data-unset-add="<?php echo $unset_add; ?>"
+  data-list-add="<?php echo $this->l('list_add'); ?>"
+  data-subject="<?php echo $subject; ?>"
+  data-add-url="<?php echo $add_url; ?>">
   <?php echo $list_view?>
 </div>

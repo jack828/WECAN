@@ -19,41 +19,66 @@ var mColumns = [];
 
 $(document).ready(function() {
 
-  $('table.groceryCrudTable thead tr th').each(function (index){
-    if (!$(this).hasClass('actions')) {
-      mColumns[index] = index;
+  $('table').each(function (index){
+    var $table = $(this)
+      , $container = $table.parent()
+      , unset_export = $container.data('unset-export')
+      , unset_print = $container.data('unset-print')
+      , unset_add = $container.data('unset-add')
+      , list_add = $container.data('list-add')
+      , subject = $container.data('subject')
+      , add_url = $container.data('add-url')
+      , buttons = [ ]
+
+    if (!unset_add) {
+      buttons.push(
+      { text: '<i class="fa fa-plus-circle"></i> ' + list_add + ' ' + subject,
+        className: 'btn-sm btn-lightgrey',
+        action: function () {
+          window.location.href = '<?php echo $add_url; ?>'
+        }
+      })
     }
-  });
-
-  if (!unset_export) {
-    aButtons.push({
-      "sExtends": "xls",
-      "sButtonText": export_text,
-      "mColumns": mColumns
-    });
-  }
-
-  if (!unset_print) {
-    aButtons.push({
-      "sExtends": "print",
-      "sButtonText": print_text,
-      "mColumns": mColumns
-    });
-  }
-
-  //For mutliplegrids disable bStateSave as it is causing many problems
-  if ($('.groceryCrudTable').length > 1) {
-    use_storage = false;
-  }
-
-  $('.groceryCrudTable').each(function (index){
-    if (typeof oTableArray[index] !== 'undefined') {
-      return false;
+    if (!unset_export) {
+      buttons.push(
+      { extend: 'csv',
+        className: 'btn-sm btn-lightgrey'
+      })
+    }
+    if (!unset_print) {
+      buttons.push(
+      { extend: 'print',
+        className: 'btn-sm btn-lightgrey'
+      })
     }
 
-    oTableMapping[$(this).attr('id')] = index;
+    if ($.fn.DataTable.isDataTable($table)) return
+    var datatable = $table.DataTable({
+      dom: 'Bfrtip',
+      buttons: buttons,
+      language: {
+        search: ''
+      , searchPlaceholder: 'Search all records...'
+      },
+      responsive: true
+    })
 
-    oTableArray[index] = loadDataTable(this);
+    $table.find('th.actions').unbind('click').removeClass('sorting')
+
+    $table.find('tfoot').find('input').on('keyup', function () {
+
+      datatable.columns().every(function () {
+        var that = this
+
+        $('input', this.footer()).on('keyup change', function () {
+          if (that.search() !== this.value) {
+            that
+              .search(this.value)
+              .draw()
+          }
+        })
+      })
+    })
   });
 
   $('.clear-filtering').click(function () {
@@ -68,7 +93,7 @@ $(document).ready(function() {
       .draw();
   });
 
-  loadListenersForDatatables();
+  // loadListenersForDatatables();
 
   $('a[role=button],button[role=button]').live("mouseover mouseout", function(event) {
     if (event.type == "mouseover") {
