@@ -78,13 +78,28 @@
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo site_url('main/Venues'); ?>">
+                    <a href="<?php echo site_url('main/venues'); ?>">
                       <i class="fa fa-fw fa-map-marker"></i> Venues
                     </a>
                   </li>
                   <li>
                     <a href="<?php echo site_url('main/cards'); ?>">
                       <i class="fa fa-fw fa-credit-card-alt"></i> Cards
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="menu_section">
+                <h3>Admin</h3>
+                <ul class="nav side-menu">
+                  <li>
+                    <a href="<?php echo site_url('main/end_competition'); ?>">
+                      <i class="fa fa-fw fa-warning"></i> End Competition
+                    </a>
+                  </li>
+                  <li>
+                    <a href="<?php echo site_url('main/venue_access'); ?>">
+                      <i class="fa fa-fw fa-unlock"></i> Test Venue Access
                     </a>
                   </li>
                 </ul>
