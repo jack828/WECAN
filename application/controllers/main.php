@@ -509,4 +509,36 @@ class Main extends CI_Controller {
   public function cards_output($output = null) {
     $this->load->view('cards_view.php', $output);
   }
+
+  public function end_competition() {
+    $userData = $this->ensure_logged_in();
+    if (!$userData) {
+      redirect('login', 'refresh');
+    }
+    $this->load->view('header', $userData);
+    $this->load->view('end_competition_view');
+    $this->load->view('footer');
+  }
+
+  public function terminate() {
+    $userData = $this->ensure_logged_in();
+    if (!$userData) {
+      redirect('login', 'refresh');
+    }
+    $this->load->view('header', $userData);
+
+    $cardUpdate = array(
+        'endDate' => date('Y-m-d')
+      , 'cardStateID' => 2
+    );
+    $competitorUpdate = array(
+        'authorised' => '0'
+    );
+    $this->db->update('competitor', $competitorUpdate, 'authorised = 1');
+    $this->db->update('card', $cardUpdate, 'cardStateID = 1');
+
+    $data = array('terminate' => true);
+    $this->load->view('end_competition_view', $data);
+    $this->load->view('footer');
+  }
 }
