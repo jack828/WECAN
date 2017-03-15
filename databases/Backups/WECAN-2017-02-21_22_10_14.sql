@@ -19,6 +19,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `WECAN`
 --
+DROP DATABASE `WECAN`;
 CREATE DATABASE IF NOT EXISTS `WECAN` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `WECAN`;
 
@@ -28,7 +29,6 @@ USE `WECAN`;
 -- Table structure for table `card`
 --
 
-DROP TABLE IF EXISTS `card`;
 CREATE TABLE IF NOT EXISTS `card` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `competitorID` int(11) NOT NULL,
@@ -71,7 +71,6 @@ INSERT INTO `card` (`ID`, `competitorID`, `startDate`, `endDate`, `cardStateID`)
 -- Table structure for table `cardState`
 --
 
-DROP TABLE IF EXISTS `cardState`;
 CREATE TABLE IF NOT EXISTS `cardState` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `state` varchar(16) DEFAULT NULL,
@@ -93,7 +92,6 @@ INSERT INTO `cardState` (`ID`, `state`) VALUES
 -- Table structure for table `competitor`
 --
 
-DROP TABLE IF EXISTS `competitor`;
 CREATE TABLE IF NOT EXISTS `competitor` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `titleID` int(11) NOT NULL,
@@ -137,7 +135,6 @@ INSERT INTO `competitor` (`ID`, `titleID`, `fullName`, `role`, `teamID`, `author
 -- Table structure for table `competitorTitle`
 --
 
-DROP TABLE IF EXISTS `competitorTitle`;
 CREATE TABLE IF NOT EXISTS `competitorTitle` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(2) DEFAULT NULL,
@@ -159,7 +156,6 @@ INSERT INTO `competitorTitle` (`ID`, `title`) VALUES
 -- Table structure for table `matchAccess`
 --
 
-DROP TABLE IF EXISTS `matchAccess`;
 CREATE TABLE IF NOT EXISTS `matchAccess` (
   `ID` int(11) NOT NULL,
   `matchDate` date DEFAULT NULL,
@@ -190,7 +186,6 @@ INSERT INTO `matchAccess` (`ID`, `matchDate`, `venueID`, `team1ID`, `team2ID`) V
 -- Table structure for table `team`
 --
 
-DROP TABLE IF EXISTS `team`;
 CREATE TABLE IF NOT EXISTS `team` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `teamName` varchar(128) NOT NULL,
@@ -218,7 +213,6 @@ INSERT INTO `team` (`ID`, `teamName`, `nfa`, `acronym`, `nickname`, `eliminated`
 -- Table structure for table `venue`
 --
 
-DROP TABLE IF EXISTS `venue`;
 CREATE TABLE IF NOT EXISTS `venue` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `venueName` varchar(255) NOT NULL,
@@ -244,7 +238,6 @@ INSERT INTO `venue` (`ID`, `venueName`, `stadium`) VALUES
 -- Table structure for table `venueUsage`
 --
 
-DROP TABLE IF EXISTS `venueUsage`;
 CREATE TABLE IF NOT EXISTS `venueUsage` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `cardID` int(11) NOT NULL,
