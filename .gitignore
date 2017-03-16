@@ -1,3 +1,4 @@
 easyphp.log
 application/logs/log-*
 sftp-config.json
+.remote-sync.json
