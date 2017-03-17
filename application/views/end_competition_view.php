@@ -7,7 +7,11 @@
         <div class="clearfix"></div>
       </div>
       <div class="x_content center">
-        <h2>This will cancel all active cards. <strong>This action is irreversible!</strong></h2>
+        <h2>
+          This will terminate all active cards.
+          <br />
+          <strong>This action is irreversible!</strong>
+        </h2>
 
         <input class="btn btn-lg btn-primary js-cancel" type="button" role="button" value="Cancel & go back!" />
         <br>
