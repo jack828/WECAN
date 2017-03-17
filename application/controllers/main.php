@@ -541,4 +541,72 @@ class Main extends CI_Controller {
     $this->load->view('end_competition_view', $data);
     $this->load->view('footer');
   }
+
+  public function venue_access($cardID = null, $venueID = null) {
+    $userData = $this->ensure_logged_in();
+    if (!$userData) {
+      redirect('login', 'refresh');
+    }
+    $this->load->view('header', $userData);
+
+    // This is a cheaty way to get all the needed CSS and JS files loaded
+    $crud = new grocery_CRUD();
+    $crud->set_theme('datatables');
+    $crud->set_table('card');
+
+    $state_code = 2;
+    $output = $crud->render($state_code);
+
+    // Filter out jquery.datepicker.config.js as it raises a JS error
+    $output->js_files = array_filter($output->js_files, function($file) {
+      return strpos($file, 'datepicker.config') === false;
+    }, ARRAY_FILTER_USE_BOTH);
+
+    // Manually query database for card numbers and venues
+    $this->db->select('card.ID, competitor.fullName')
+              ->from('card, competitor')
+              ->where('competitor.ID = card.competitorID AND card.cardStateID = 1');
+    $output->cards = $this->db->get()->result();
+
+    $this->db->select('ID, venueName')
+              ->from('venue');
+    $output->venues = $this->db->get()->result();
+
+    if ($cardID && $venueID) {
+      // Test for venue access
+      $sql = 'SELECT IF(EXISTS('
+            . '  SELECT *'
+           . '    FROM matchAccess, team, competitor, card, venue'
+           . '  WHERE (matchAccess.team1ID = team.ID OR matchAccess.team2ID = team.ID)'
+           . '    AND team.ID = competitor.teamID'
+           . '    AND competitor.ID = card.competitorID'
+           . '    AND card.ID = ' . $cardID
+           . '    AND card.cardStateID = 1'
+           . '    AND matchAccess.venueID = venue.ID'
+           . '    AND venue.ID = ' . $venueID
+           . '    AND matchAccess.matchDate = CURDATE()'
+           . '), 1, 0) AS result;';
+
+      $result = $this->db->query($sql)
+                          ->result()[0]
+                          ->result;
+
+      // Log request
+      $data = array(
+          'venueID' => $venueID
+        , 'cardID' => $cardID
+        , 'dateAccessed' => date('Y-m-d')
+        , 'accessGranted' => $result
+      );
+      $this->db->insert('venueUsage', $data);
+    } else {
+      $result = null;
+    }
+
+    $output->granted = $result;
+
+
+    $this->load->view('venue_access_view', $output);
+    $this->load->view('footer');
+  }
 }
