@@ -65,6 +65,7 @@ CREATE TABLE accounts ( ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 						username VARCHAR(255) NOT NULL,
 						passwd VARCHAR(255) NOT NULL,
 						salt VARCHAR(255) NOT NULL,
+						email VARCHAR(255) NOT NULL,
 						organisation VARCHAR(255) NOT NULL,
 						token VARCHAR(255) DEFAULT NULL
 						);
