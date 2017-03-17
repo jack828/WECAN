@@ -35,7 +35,7 @@ $(document).ready(function() {
       { text: '<i class="fa fa-plus-circle"></i> ' + list_add + ' ' + subject,
         className: 'btn-sm btn-lightgrey',
         action: function () {
-          window.location.href = '<?php echo $add_url; ?>'
+          window.location.href = add_url
         }
       })
     }
