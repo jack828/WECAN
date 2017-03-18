@@ -23,12 +23,12 @@
   <body class='login'>
     <div>
       <br />
-      <img src='/WECAN/assets/images/WECAN_LogoSplash.png' class='img-responsive center-block' alt='WECAN Logo' width='220' />
+      <img src='/WECAN/assets/images/WECAN_LogoBannerIcon.png' class='img-responsive center-block' alt='WECAN Logo' width='220' />
       <div class='login_wrapper'>
         <div class='form login_form'>
           <section class='login_content'>
             <?php echo form_open('verifyLogin'); ?>
-              <h1>WECAN Login</h1>
+              <h1>LOGIN</h1>
               <div>
                 <input name='username' type='text' class='form-control username' placeholder='Username' required />
               </div>
