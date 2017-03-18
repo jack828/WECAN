@@ -32,7 +32,8 @@
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
               <a class="site_title">
-                <i class="fa fa-futbol-o"></i> <span>WECAN</span>
+                <img src="/WECAN/assets/images/WECAN_LogoSmall.png" alt="WECAN Logo" width="60" />
+                <span>WECAN</span>
               </a>
             </div>
 
