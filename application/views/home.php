@@ -2,7 +2,7 @@
   <div class=''>
     <div class='x_panel'>
       <div class='x_title'>
-        <h1>WECAN System Home</h2>
+        <h1>WECAN System Home</h1>
         <div class='clearfix'></div>
       </div>
       <div class='x_content center'>

@@ -10,7 +10,7 @@
   <div class=''>
     <div class='x_panel'>
       <div class='x_title'>
-        <h1>Venues</h2>
+        <h1>Venues</h1>
         <div class='clearfix'></div>
       </div>
       <div class='x_content'>
@@ -21,7 +21,7 @@
     <?php if(isset($accessLogs)): ?>
     <div class='x_panel'>
       <div class='x_title'>
-        <h1>Access Logs</h2>
+        <h1>Access Logs</h1>
         <div class='clearfix'></div>
       </div>
       <div class='x_content'>

@@ -2,7 +2,7 @@
   <div class=''>
     <div class='x_panel'>
       <div class='x_title'>
-        <h1>End Competition</h2>
+        <h1>End Competition</h1>
         <div class='clearfix'></div>
       </div>
       <div class='x_content center'>
@@ -12,10 +12,10 @@
           <strong>This action is irreversible!</strong>
         </h2>
 
-        <input class='btn btn-lg btn-primary js-cancel' type='button' role='button' value='Cancel &amp; go back!' />
+        <input class='btn btn-lg btn-primary js-cancel' type='button' value='Cancel &amp; go back!' />
         <br>
         <br>
-        <input class='btn btn-sm btn-danger js-terminate' type='button' role='button' value='Terminate ALL cards' />
+        <input class='btn btn-sm btn-danger js-terminate' type='button' value='Terminate ALL cards' />
       </div>
     </div>
   </div>

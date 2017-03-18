@@ -11,7 +11,7 @@ foreach($css_files as $file): ?>
   <div class=''>
     <div class='x_panel'>
       <div class='x_title'>
-        <h1>Cards</h2>
+        <h1>Cards</h1>
         <div class='clearfix'></div>
       </div>
       <div class='x_content'>
@@ -22,7 +22,7 @@ foreach($css_files as $file): ?>
     <?php if(isset($accessLogs)): ?>
     <div class='x_panel'>
       <div class='x_title'>
-        <h1>Access Logs</h2>
+        <h1>Access Logs</h1>
         <div class='clearfix'></div>
       </div>
       <div class='x_content'>

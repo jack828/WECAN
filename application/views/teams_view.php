@@ -10,7 +10,7 @@
   <div class=''>
     <div class='x_panel'>
       <div class='x_title'>
-        <h1>Teams</h2>
+        <h1>Teams</h1>
         <div class='clearfix'></div>
       </div>
       <div class='x_content'>
@@ -21,7 +21,7 @@
     <?php if(isset($competitors)): ?>
     <div class='x_panel'>
       <div class='x_title'>
-        <h1>Competitors</h2>
+        <h1>Competitors</h1>
         <div class='clearfix'></div>
       </div>
       <div class='x_content'>
@@ -33,7 +33,7 @@
     <?php if(isset($matches)): ?>
     <div class='x_panel'>
       <div class='x_title'>
-        <h1>Matches</h2>
+        <h1>Matches</h1>
         <div class='clearfix'></div>
       </div>
       <div class='x_content'>

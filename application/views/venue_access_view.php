@@ -14,7 +14,7 @@
   <div class=''>
     <div class='x_panel'>
       <div class='x_title'>
-        <h1>Test Venue Access</h2>
+        <h1>Test Venue Access</h1>
         <div class='clearfix'></div>
       </div>
       <div class='x_content center'>
@@ -22,7 +22,7 @@
         <form class='form-horizontal form-label-left js-test-venue-form' method='post' enctype='multipart/form-data'>
 
           <div class='form-group'>
-            <label class='control-label col-md-3 col-sm-3 col-xs-12' for='card_numbers'>
+            <label class='control-label col-md-3 col-sm-3 col-xs-12'>
               Card Number
               <span class='required'>*</span>
             </label>
@@ -37,7 +37,7 @@
           </div>
 
           <div class='form-group'>
-            <label class='control-label col-md-3 col-sm-3 col-xs-12' for='venue'>
+            <label class='control-label col-md-3 col-sm-3 col-xs-12'>
               Venue
               <span class='required'>*</span>
             </label>
@@ -52,7 +52,7 @@
           </div>
 
           <div class='form-group'>
-            <label class='control-label col-md-3 col-sm-3 col-xs-12' for='date'>
+            <label class='control-label col-md-3 col-sm-3 col-xs-12'>
               Date
               <span class='required'>*</span>
             </label>
@@ -67,8 +67,8 @@
           <div class='form-group'>
             <div class='col-md-6 col-sm-6 col-xs-12 col-md-offset-3'>
               <div id='buttons'>
-                <input role='button' type='submit' value='Test Card' class='btn btn-primary' id='test-card-button' />
-                <input role='button' type='button' value='Cancel' class='btn btn-primary js-cancel-button' id='cancel-button' />
+                <input type='submit' value='Test Card' class='btn btn-primary' id='test-card-button' />
+                <input type='button' value='Cancel' class='btn btn-primary js-cancel-button' id='cancel-button' />
               </div>
             </div>
           </div>
