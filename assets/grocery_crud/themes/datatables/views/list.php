@@ -23,7 +23,7 @@
   					foreach($row->action_urls as $action_unique_id => $action_url){
   						$action = $actions[$action_unique_id];
   				?>
-  						<a href="<?php echo $action_url; ?>" class="edit_button btn btn-xs btn-danger" role="button">
+  						<a href="<?php echo $action_url; ?>" class="edit_button btn btn-xs btn-danger" role="button"  onclick="return confirm('Are you sure?')">
   							<span class="fa <?php echo $action->css_class; ?> <?php echo $action_unique_id;?>"></span>
                 &nbsp;<?php echo $action->label; ?>
   						</a>
