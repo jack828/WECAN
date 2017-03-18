@@ -542,7 +542,7 @@ class Main extends CI_Controller {
     $this->load->view('footer');
   }
 
-  public function venue_access($cardID = null, $venueID = null) {
+  public function venue_access($cardID = null, $venueID = null, $date = null) {
     $userData = $this->ensure_logged_in();
     if (!$userData) {
       redirect('login', 'refresh');
@@ -567,7 +567,16 @@ class Main extends CI_Controller {
               ->from('venue');
     $output->venues = $this->db->get()->result();
 
-    if ($cardID && $venueID) {
+    $result = null;
+
+    if ($date) {
+      $pieces = explode('-', $date);
+      $isDateValid = checkdate($pieces[1], $pieces[2], $pieces[0]);
+      $result = '2';
+    }
+
+    if ($cardID && $venueID && $date && $isDateValid) {
+
       // Test for venue access
       $sql = 'SELECT IF(EXISTS('
             . '  SELECT *'
@@ -579,7 +588,7 @@ class Main extends CI_Controller {
            . '    AND card.cardStateID = 1'
            . '    AND matchAccess.venueID = venue.ID'
            . '    AND venue.ID = ' . $venueID
-           . '    AND matchAccess.matchDate = CURDATE()'
+           . "    AND matchAccess.matchDate = '$date'"
            . '), 1, 0) AS result;';
 
       $result = $this->db->query($sql)
@@ -590,12 +599,10 @@ class Main extends CI_Controller {
       $data = array(
           'venueID' => $venueID
         , 'cardID' => $cardID
-        , 'dateAccessed' => date('Y-m-d')
+        , 'dateAccessed' => $date
         , 'accessGranted' => $result
       );
       $this->db->insert('venueUsage', $data);
-    } else {
-      $result = null;
     }
 
     $output->granted = $result;

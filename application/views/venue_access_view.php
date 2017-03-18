@@ -58,7 +58,7 @@ foreach($css_files as $file): ?>
               <span class='required'>*</span>
             </label>
             <div class='col-md-6 col-sm-6 col-xs-12'>
-          		<input type='text' value='<?php echo date("Y-m-d"); ?>' maxlength='10' class='datepicker-input form-control' />
+          		<input type='text' value='<?php echo date("Y-m-d"); ?>' maxlength='10' class='datepicker-input form-control js-date' required />
               (YYYY-MM-DD)
             </div>
           </div>
@@ -84,6 +84,9 @@ foreach($css_files as $file): ?>
 
   $(document).on('ready', function () {
     switch (granted) {
+      case '2':
+        $('.x_content').html('<h1 class="red">INVALID REQUEST</h1>')
+        break;
       case '1':
         $('.x_content').html('<h1 class="green">ACCESS GRANTED</h1>')
         break;
@@ -99,8 +102,9 @@ foreach($css_files as $file): ?>
     e.preventDefault()
     var cardID = $(this).find('.js-card').val()
       , venueID = $(this).find('.js-venue').val()
+      , date = $(this).find('.js-date').val()
 
-    window.location.pathname += '/' + cardID + '/' + venueID
+    window.location.pathname += '/' + cardID + '/' + venueID + '/' + date
   })
 
   $('.js-cancel-button').on('click', function () {
