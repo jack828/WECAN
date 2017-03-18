@@ -1,4 +1,4 @@
-<table cellpadding="0" cellspacing="0" border="0" class="table table-bordered table-hover" id="<?php echo $unique_hash; ?>">
+<table width="100%" cellpadding="0" cellspacing="0" border="0" class="table table-bordered table-hover" id="<?php echo $unique_hash; ?>">
 	<thead>
 		<tr>
 			<?php foreach($columns as $column){?>
