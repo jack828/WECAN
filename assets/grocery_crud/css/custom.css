@@ -28,7 +28,7 @@
   border-color: #95a5a6;
 }
 
-input#username, input#password {
+input.username, input.password {
   width: 90% !important;
   margin-left: 5% !important;
 }

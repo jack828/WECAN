@@ -1,5 +1,4 @@
-<?php
-foreach($css_files as $file): ?>
+<?php foreach($css_files as $file): ?>
   <link type='text/css' rel='stylesheet' href='<?php echo $file; ?>' />
 <?php endforeach; ?>
   <link type='text/css' rel='stylesheet' href='/WECAN/assets/gentelella/vendors/select2/dist/css/select2.min.css' />

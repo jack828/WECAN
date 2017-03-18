@@ -1,22 +1,21 @@
-
-<div class="right_col" role="main">
-  <div class="">
-    <div class="x_panel">
-      <div class="x_title">
+<div class='right_col' role='main'>
+  <div class=''>
+    <div class='x_panel'>
+      <div class='x_title'>
         <h1>End Competition</h2>
-        <div class="clearfix"></div>
+        <div class='clearfix'></div>
       </div>
-      <div class="x_content center">
+      <div class='x_content center'>
         <h2>
           This will terminate all active cards.
           <br />
           <strong>This action is irreversible!</strong>
         </h2>
 
-        <input class="btn btn-lg btn-primary js-cancel" type="button" role="button" value="Cancel & go back!" />
+        <input class='btn btn-lg btn-primary js-cancel' type='button' role='button' value='Cancel &amp; go back!' />
         <br>
         <br>
-        <input class="btn btn-sm btn-danger js-terminate" type="button" role="button" value="Terminate ALL cards" />
+        <input class='btn btn-sm btn-danger js-terminate' type='button' role='button' value='Terminate ALL cards' />
       </div>
     </div>
   </div>
@@ -40,5 +39,4 @@
       window.location.href = '<?php echo site_url('main/terminate'); ?>'
     }
   })
-
 </script>
