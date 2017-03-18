@@ -50,3 +50,7 @@ ul.nav.navbar-nav.navbar-right > li a {
     text-align: center;
   }
 }
+
+.login_wrapper {
+  margin: 0 auto 0;
+}

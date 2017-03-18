@@ -24,7 +24,8 @@
     <div>
       <a class="hiddenanchor" id="signup"></a>
       <a class="hiddenanchor" id="signin"></a>
-
+      <br />
+      <img src="/WECAN/assets/images/WECAN_LogoSplash.png" class="img-responsive center-block" alt="WECAN Logo" width="220" />
       <div class="login_wrapper">
         <div class="form login_form">
           <section class="login_content">
