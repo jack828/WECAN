@@ -52,13 +52,24 @@ foreach($css_files as $file): ?>
             </div>
           </div>
 
+          <div class='form-group'>
+            <label class='control-label col-md-3 col-sm-3 col-xs-12' for='date'>
+              Date
+              <span class='required'>*</span>
+            </label>
+            <div class='col-md-6 col-sm-6 col-xs-12'>
+          		<input type='text' value='<?php echo date("Y-m-d"); ?>' maxlength='10' class='datepicker-input form-control' />
+              (YYYY-MM-DD)
+            </div>
+          </div>
+
           <div class='ln_solid'></div>
 
           <div class='form-group'>
             <div class='col-md-6 col-sm-6 col-xs-12 col-md-offset-3'>
               <div id='buttons'>
                 <input role='button' type='submit' value='Test Card' class='btn btn-primary' id='test-card-button' />
-                <input role='button' type='button' value='Cancel' class='btn btn-primary' id='cancel-button' />
+                <input role='button' type='button' value='Cancel' class='btn btn-primary js-cancel-button' id='cancel-button' />
               </div>
             </div>
           </div>
@@ -68,6 +79,7 @@ foreach($css_files as $file): ?>
   </div>
 </div>
 <script>
+  var js_date_format = 'yy-mm-dd'
   var granted = '<?php echo $granted; ?>'
 
   $(document).on('ready', function () {
@@ -89,5 +101,9 @@ foreach($css_files as $file): ?>
       , venueID = $(this).find('.js-venue').val()
 
     window.location.pathname += '/' + cardID + '/' + venueID
+  })
+
+  $('.js-cancel-button').on('click', function () {
+    window.history.back()
   })
 </script>

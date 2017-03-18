@@ -557,11 +557,6 @@ class Main extends CI_Controller {
     $state_code = 2;
     $output = $crud->render($state_code);
 
-    // Filter out jquery.datepicker.config.js as it raises a JS error
-    $output->js_files = array_filter($output->js_files, function($file) {
-      return strpos($file, 'datepicker.config') === false;
-    }, ARRAY_FILTER_USE_BOTH);
-
     // Manually query database for card numbers and venues
     $this->db->select('card.ID, competitor.fullName')
               ->from('card, competitor')
