@@ -7,7 +7,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 
-    <title>WECAN | LOGIN</title>
+    <title>WECAN | FORGOTTEN PASSWORD</title>
 
     <!-- Bootstrap -->
     <link href='/WECAN/assets/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css' rel='stylesheet'>
@@ -27,20 +27,26 @@
       <div class='login_wrapper'>
         <div class='form login_form'>
           <section class='login_content'>
-            <?php echo form_open('verifyLogin'); ?>
-              <h1>LOGIN</h1>
-              <div>
-                <input name='username' type='text' class='form-control username' placeholder='Username' required />
-              </div>
+            <?php echo form_open('reset/assign', 'method="post" class="js-reset-form"'); ?>
+              <h1>FORGOT</h1>
+
+              <?php if (isset($set)) { ?>
+                <h1>Please login with your new credentials.</h1>
+              <?php } else { ?>
               <div>
                 <input name='password' type='password' class='form-control password' placeholder='Password' required />
+                <input name='passwordConfirm' type='password' class='form-control password' placeholder='Confirm Password' required />
+                <input name='token' type='hidden' class='form-control hidden' value='<?php echo $token; ?>' />
+                <input name='expiry' type='hidden' class='form-control hidden' value='<?php echo $expiry; ?>' />
+                <input name='email' type='hidden' class='form-control hidden' value='<?php echo $email; ?>' />
               </div>
               <div>
-                <button class='btn btn-default submit' type='submit'>Log in</button>
-                <a class='reset_pass' href='<?php echo site_url('reset'); ?>'>Lost your password?</a>
+                <a href='<?php echo site_url('login'); ?>' class='btn btn-default submit'>Go back</a>
+                <button class='btn btn-default submit' type='submit'>Reset password</button>
               </div>
 
               <div class='clearfix'></div>
+              <?php } ?>
 
               <div class='separator'>
               <?php if (validation_errors()): ?>
@@ -71,5 +77,13 @@
     </div>
     <script src='/WECAN/assets/gentelella/vendors/jquery/dist/jquery.min.js'></script>
     <script src='/WECAN/assets/gentelella/vendors/bootstrap/dist/js/bootstrap.min.js'></script>
+    <script>
+      // $('.js-reset-form').on('submit', function () {
+      //   var password = $(this).find('input[name=password]').val()
+      //     , passwordConfirm = $(this).find('input[name=passwordConfirm]').val()
+      //   console.log(password, passwordConfirm)
+      //   return false
+      // })
+    </script>
   </body>
 </html>
