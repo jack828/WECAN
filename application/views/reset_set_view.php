@@ -49,12 +49,12 @@
               <?php } ?>
 
               <div class='separator'>
-              <?php if (validation_errors()): ?>
+              <?php if (isset($error)): ?>
                 <div class='alert alert-error alert-dismissible fade in' role='alert' style='text-shadow: none;'>
                   <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                     <span aria-hidden='true'>×</span>
                   </button>
-                  <?php echo validation_errors(); ?>
+                  <?php echo $error; ?>
                 </div>
               <?php endif; ?>
                 <div class='clearfix'></div>

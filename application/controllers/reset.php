@@ -19,45 +19,10 @@ class Reset extends CI_Controller {
     $config['crlf'] = "\r\n";
     $this->load->library('email', $config);
     $this->email->set_newline("\r\n");
-
-    // $this->load->library('email');
   }
 
   function index() {
-    //This method will have the credentials validation
-    $this->load->library('form_validation');
-
-    // $this->form_validation->set_rules('email', 'Email', 'trim|required|xss_clean|callback_check_email');
-
-    // if($this->form_validation->run() == FALSE) {
-      //Field validation failed.  User redirected to login page
-      $this->load->view('reset_view');
-    // } else {
-      //Go to private area
-    // }
-  }
-
-  function check_database($password) {
-    //Field validation succeeded.  Validate against database
-    $username = $this->input->post('username');
-
-    //query the database
-    $result = $this->user->login($username, $password);
-
-    if($result) {
-      $sess_array = array();
-      foreach($result as $row) {
-        $sess_array = array(
-          'id' => $row->id,
-          'username' => $row->username
-        );
-        $this->session->set_userdata('logged_in', $sess_array);
-      }
-      return TRUE;
-    } else {
-      $this->form_validation->set_message('check_database', 'Invalid username or password');
-      return false;
-    }
+    $this->load->view('reset_view');
   }
 
   public function send () {
@@ -74,7 +39,7 @@ class Reset extends CI_Controller {
 
     $user = $this->db->get()->result()[0];
 
-    $expiry = microtime() + 1*60*60*1000*1000; // Expires in 1 hour
+    $expiry = time() + 1*60*60; // Expires in 1 hour
     $token = $this->generateToken($user, $expiry);
     $link = site_url('reset/set') . '?token=' . $token . '&email=' . $user->email . '&expiry=' . $expiry;
     $message = "A password reset has been requested\n"
@@ -120,13 +85,24 @@ class Reset extends CI_Controller {
 
     $user = $this->db->get()->result()[0];
 
-    if (microtime() > $expiry || $user->token !== $token) {
-      // fail
+    if ($expiry < time() || $user->token !== $token) {
+      $errors = array('error' => 'Invalid Password Reset');
+      return $this->load->view('reset_set_view', $errors);
+    } else if ($password !== $passwordConfirm) {
+      $data = array(
+          'error' => 'Passwords do not match'
+        , 'token' => $token
+        , 'expiry' => $expiry
+        , 'email' => $email
+      );
+
+      return $this->load->view('reset_set_view', $data);
     }
 
     $password = hash('sha256', $password . $user->salt);
 
     $this->db->set('passwd', $password)
+              ->set('token', null)
               ->where('ID', $user->ID)
               ->update('accounts');
 
