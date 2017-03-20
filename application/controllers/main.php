@@ -587,6 +587,7 @@ class Main extends CI_Controller {
            . '    AND competitor.ID = card.competitorID'
            . '    AND card.ID = ' . $cardID
            . '    AND card.cardStateID = 1'
+           . '    AND matchAccess.matchDate >= card.startDate'
            . '    AND matchAccess.venueID = venue.ID'
            . '    AND venue.ID = ' . $venueID
            . "    AND matchAccess.matchDate = '$date'"
