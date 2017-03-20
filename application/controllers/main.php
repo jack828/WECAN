@@ -300,11 +300,7 @@ class Main extends CI_Controller {
 
   public function start_date_callback() {
     return "
-      <input id='field-startDate' name='startDate' type='text' value='".date('Y-m-d')."' maxlength='20' class='datepicker-input'>
-      <a class='datepicker-input-clear ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only' tabindex='-1' role='button' aria-disabled='false'>
-        <span class='ui-button-text'>Clear</span>
-      </a>
-      Invalid dates are silently ignored";
+      <input id='field-startDate' name='startDate' type='text' value='2017-07-16' maxlength='20' class='datepicker-input form-control'>";
   }
 
   public function insert_competitor_callback($array, $primary_key) {
