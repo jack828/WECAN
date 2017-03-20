@@ -22,12 +22,16 @@
   				if(!empty($row->action_urls)){
   					foreach($row->action_urls as $action_unique_id => $action_url){
   						$action = $actions[$action_unique_id];
+  						if (($subject === 'Card' && $row->cardStateID === '1')
+  							|| ($subject === 'Competitor' && $row->authorised === 'YES')
+  							|| ($subject === 'Team' && $row->eliminated === 'NO')) {
   				?>
   						<a href="<?php echo $action_url; ?>" class="edit_button btn btn-xs btn-danger" role="button"  onclick="return confirm('Are you sure?')">
   							<span class="fa <?php echo $action->css_class; ?> <?php echo $action_unique_id;?>"></span>
-                &nbsp;<?php echo $action->label; ?>
+  							&nbsp;<?php echo $action->label; ?>
   						</a>
-  				<?php }
+  				<?php } // if
+  					} // foreach
   				}
   				?>
   				<?php if(!$unset_read){?>
