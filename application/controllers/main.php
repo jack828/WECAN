@@ -238,7 +238,7 @@ class Main extends CI_Controller {
     $crud->unset_delete();
     $crud->add_action('Eliminate', '', '', 'fa-minus-circle', array($this, 'eliminate_competitor_url'));
 
-    $output = $crud->render();
+    $output = null;
 
     if($crud->getState() == 'add') {
       $crud->add_fields('titleID', 'fullName', 'role', 'teamID', 'authorised', 'startDate');
@@ -255,7 +255,9 @@ class Main extends CI_Controller {
 
       $crud->set_css('assets/grocery_crud/css/ui/simple/jquery-ui-1.10.1.custom.min.css');
       $crud->set_css('assets/grocery_crud/css/jquery_plugins/jquery.ui.datetime.css');
+      $output = $crud->render();
     } elseif ($crud->getState() == 'read') {
+      $output = $crud->render();
       // Get competitor's cards
       $competitorID = $crud->getStateInfo()->primary_key;
       $cardCrud = new grocery_CRUD();
@@ -289,6 +291,9 @@ class Main extends CI_Controller {
       $output->js_config_files = array_merge($cards->js_config_files, $output->js_config_files);
       $output->css_files = array_merge($cards->css_files, $output->css_files);
     }
+
+    if ($output === null) { $output = $crud->render(); }
+
     $this->competitors_output($output);
     $this->load->view('footer');
   }
