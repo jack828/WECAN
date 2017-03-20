@@ -31,7 +31,7 @@
           <div class='left_col scroll-view'>
             <div class='navbar nav_title' style='border: 0;'>
               <a class='site_title'>
-                <img src='/WECAN/assets/images/WECAN_LogoSmall.png' alt='WECAN Logo' width='50' />
+                <img src='/WECAN/assets/images/WECAN_LogoSmallWhite.png' alt='WECAN Logo' width='50' />
                 <span>WECAN</span>
               </a>
             </div>
