@@ -1778,6 +1778,7 @@ class grocery_CRUD_Layout extends grocery_CRUD_Model_Driver
 		$data->list_url 		= $this->getListUrl();
 		$data->insert_url		= $this->getInsertUrl();
 		$data->validation_url	= $this->getValidationInsertUrl();
+		$data->check_url = $this->getCheckUrl();
 		$data->input_fields 	= $this->get_add_input_fields();
 
 		$data->fields 			= $this->get_add_fields();
@@ -3065,6 +3066,11 @@ class grocery_CRUD_States extends grocery_CRUD_Layout
 	protected function getValidationInsertUrl()
 	{
 		return $this->state_url('insert_validation');
+	}
+
+	protected function getCheckUrl()
+	{
+		return site_url('main/check');
 	}
 
 	protected function getValidationUpdateUrl($primary_key = null)

@@ -303,6 +303,30 @@ class Main extends CI_Controller {
       <input id='field-startDate' name='startDate' type='text' value='2017-07-16' maxlength='20' class='datepicker-input form-control'>";
   }
 
+  public function check () {
+    $fullName = $this->input->get('fullName');
+
+    // Only query the database when there are two words (firstname lastname)
+    if (strlen($fullName) === 0 || strpos($fullName, ' ') === false) {
+      return exit(json_encode(array('count' => 0)));
+    }
+
+    $this->db->select('competitorTitle.title, competitor.fullName, team.teamName, competitor.role')
+              ->from('competitor')
+              ->like('fullName', $fullName)
+              ->join('team', 'competitor.teamID = team.ID')
+              ->join('competitorTitle', 'competitor.titleID = competitorTitle.ID');
+
+    $result = $this->db->get();
+
+    $data = array(
+        'count' => $result->num_rows()
+      , 'rows' => $result->result_array()
+    );
+
+    exit(json_encode($data));
+  }
+
   public function insert_competitor_callback($array, $primary_key) {
     $startDate = date('Y-m-d');
     if (isset($array['startDate']) && $array['startDate'] != '') {

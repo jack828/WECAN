@@ -65,6 +65,7 @@
 
 <script>
 	var validation_url = '<?php echo $validation_url?>';
+	var check_url = '<?php echo $check_url?>';
 	var list_url = '<?php echo $list_url?>';
 
 	var message_alert_add_form = "<?php echo $this->l('alert_add_form')?>";

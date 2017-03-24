@@ -18,6 +18,53 @@ $(function(){
   });
 
   $('#crudForm').submit(function () {
+    var fullName = $(this).find('#field-fullName').val()
+      , that = this
+      , title = $('#crudForm').parent().parent().parent().parent().find('.x_title')[0]
+      , isCompetitorSubmitForm = $(title).find('h1').html() === 'Competitors'
+
+    $.ajax({
+        url: check_url
+      , method: 'GET'
+      , data: { fullName: fullName }
+      , dataType: 'json'
+      , success: function (result) {
+          var confirmMessage = 'There are already ' + result.count + ' similar record(s), are you sure you want to continue?'
+          if (result.count && result.rows.length) {
+            result.rows.map(function (row) {
+              confirmMessage += '\n' + row.title + ' ' + row.fullName + ', ' + row.teamName + ', ' + row.role
+            })
+          }
+
+          if (isCompetitorSubmitForm && result.count) {
+              if (window.confirm(confirmMessage)) {
+                formSubmit.apply(that)
+              }
+          } else {
+            formSubmit.apply(that)
+          }
+        }
+    })
+    return false;
+  });
+
+  $('.ui-input-button').button();
+  $('.gotoListButton').button({
+    icons: {
+      primary: "ui-icon-triangle-1-w"
+    }
+  });
+
+  if ($('#cancel-button').closest('.ui-dialog').length === 0) {
+    $('#cancel-button').click(function () {
+      if (confirm(message_alert_add_form)) {
+        window.location = list_url;
+      }
+      return false;
+    });
+  }
+
+  function formSubmit() {
     $(this).ajaxSubmit({
       url: validation_url,
       dataType: 'json',
@@ -28,7 +75,6 @@ $(function(){
       },
       success: function (data) {
         $("#FormLoading").hide();
-
         if (data.success) {
           $('#crudForm').ajaxSubmit({
             dataType: 'text',
@@ -70,23 +116,6 @@ $(function(){
           });
         }
       }
-    });
-    return false;
-  });
-
-  $('.ui-input-button').button();
-  $('.gotoListButton').button({
-    icons: {
-      primary: "ui-icon-triangle-1-w"
-    }
-  });
-
-  if ($('#cancel-button').closest('.ui-dialog').length === 0) {
-    $('#cancel-button').click(function () {
-      if (confirm(message_alert_add_form)) {
-        window.location = list_url;
-      }
-      return false;
     });
   }
 });
