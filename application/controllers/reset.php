@@ -31,13 +31,23 @@ class Reset extends CI_Controller {
     $this->email->from('wecan.system@gmail.com', 'WECAN');
     $this->email->to($email);
 
-    $this->email->subject('Email Test');
+    $this->email->subject('Password Reset Requested');
 
     $this->db->select('*')
               ->from('accounts')
               ->where('email', strtolower($email));
 
-    $user = $this->db->get()->result()[0];
+    $user = $this->db->get()->result();
+    if (sizeof($user) === 0) {
+      // No users, fill with dummy but don't send email
+      $user = (object) [
+          'ID' => '9999999'
+        , 'username' => 'placeholder'
+        , 'email' => 'placeholder'
+      ];
+    } else {
+      $user = $user[0];
+    }
 
     $expiry = time() + 1*60*60; // Expires in 1 hour
     $token = $this->generateToken($user, $expiry);
@@ -47,12 +57,15 @@ class Reset extends CI_Controller {
              . $link;
     $this->email->message($message);
 
-    // We don't actually care if the email was sent or not
-    $this->email->send();
+    if ($user->ID !== '9999999') {
+      // Only send the email if a user was found
+      // We don't actually care if the email was sent or not
+      $this->email->send();
 
-    $this->db->set('token', $token)
-              ->where('ID', $user->ID)
-              ->update('accounts');
+      $this->db->set('token', $token)
+                ->where('ID', $user->ID)
+                ->update('accounts');
+    }
 
     $data = array();
     $data['sent'] = true;
