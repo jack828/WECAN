@@ -328,6 +328,11 @@ class Main extends CI_Controller {
   }
 
   public function insert_competitor_callback($array, $primary_key) {
+    if ($array['authorised'] === '0') {
+      // Don't create a card for an unauthorised competitor
+      return false;
+    }
+
     $startDate = date('Y-m-d');
     if (isset($array['startDate']) && $array['startDate'] != '') {
       $startDate = $array['startDate'];
