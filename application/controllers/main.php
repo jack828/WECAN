@@ -305,26 +305,44 @@ class Main extends CI_Controller {
 
   public function check () {
     $fullName = $this->input->get('fullName');
+    $teamName = $this->input->get('teamName');
 
-    // Only query the database when there are two words (firstname lastname)
-    if (strlen($fullName) === 0 || strpos($fullName, ' ') === false) {
+    if (strlen($fullName) > 1) {
+      // Only query the database when there are two words (firstname lastname)
+      if (strpos($fullName, ' ') === false) {
+        return exit(json_encode(array('count' => 0)));
+      }
+
+      $this->db->select('competitorTitle.title, competitor.fullName, team.teamName, competitor.role')
+                ->from('competitor')
+                ->like('fullName', $fullName)
+                ->join('team', 'competitor.teamID = team.ID')
+                ->join('competitorTitle', 'competitor.titleID = competitorTitle.ID');
+
+      $result = $this->db->get();
+
+      $data = array(
+          'count' => $result->num_rows()
+        , 'rows' => $result->result_array()
+      );
+
+      exit(json_encode($data));
+    } else if (strlen($teamName) > 1) {
+      $this->db->select('*')
+                ->from('team')
+                ->like('teamName', $teamName);
+
+      $result = $this->db->get();
+
+      $data = array(
+          'count' => $result->num_rows()
+        , 'rows' => $result->result_array()
+      );
+
+      exit(json_encode($data));
+    } else {
       return exit(json_encode(array('count' => 0)));
     }
-
-    $this->db->select('competitorTitle.title, competitor.fullName, team.teamName, competitor.role')
-              ->from('competitor')
-              ->like('fullName', $fullName)
-              ->join('team', 'competitor.teamID = team.ID')
-              ->join('competitorTitle', 'competitor.titleID = competitorTitle.ID');
-
-    $result = $this->db->get();
-
-    $data = array(
-        'count' => $result->num_rows()
-      , 'rows' => $result->result_array()
-    );
-
-    exit(json_encode($data));
   }
 
   public function insert_competitor_callback($array, $primary_key) {

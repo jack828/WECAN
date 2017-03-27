@@ -19,24 +19,32 @@ $(function(){
 
   $('#crudForm').submit(function () {
     var fullName = $(this).find('#field-fullName').val()
+      , teamName = $(this).find('#field-teamName').val()
       , that = this
       , title = $('#crudForm').parent().parent().parent().parent().find('.x_title')[0]
-      , isCompetitorSubmitForm = $(title).find('h1').html() === 'Competitors'
+      , titleText = $(title).find('h1').html()
+      , isCompetitorSubmitForm = titleText === 'Competitors'
+      , isTeamSubmitForm = titleText === 'Teams'
 
     $.ajax({
         url: check_url
       , method: 'GET'
-      , data: { fullName: fullName }
+      , data: { fullName: fullName
+        , teamName: teamName }
       , dataType: 'json'
       , success: function (result) {
           var confirmMessage = 'There are already ' + result.count + ' similar record(s), are you sure you want to continue?'
           if (result.count && result.rows.length) {
             result.rows.map(function (row) {
-              confirmMessage += '\n' + row.title + ' ' + row.fullName + ', ' + row.teamName + ', ' + row.role
+              if (isCompetitorSubmitForm) {
+                confirmMessage += '\n' + row.title + ' ' + row.fullName + ', ' + row.teamName + ', ' + row.role
+              }
             })
           }
 
-          if (isCompetitorSubmitForm && result.count) {
+          if (isTeamSubmitForm) {
+            window.alert('Team `' + teamName + '` already exists in the database.')
+          } else if (isCompetitorSubmitForm && result.count) {
               if (window.confirm(confirmMessage)) {
                 formSubmit.apply(that)
               }
