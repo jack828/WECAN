@@ -85,3 +85,47 @@ WHERE venueUsage.venueID = venue.ID
 	AND venueUsage.cardID = card.ID
     AND card.competitorID = competitor.ID
     AND venue.ID = <thisVenueID>;
+
+
+-- UAT Part 4 - Search by card for authorisation to access a venue for a match
+SELECT matchAccess.ID, venue.venueName, venue.stadium, matchAccess.matchDate
+FROM matchAccess
+LEFT JOIN venue
+	ON (venue.ID = matchAccess.venueID)
+LEFT JOIN team
+	ON (team.ID = matchAccess.team1ID OR team.ID = matchAccess.team2ID)
+LEFT JOIN competitor
+	ON (competitor.teamID = team.ID)
+LEFT JOIN card
+	ON (card.competitorID = competitor.ID)
+WHERE competitor.authorised = TRUE
+AND card.cardStateID = 1
+AND	card.ID = <cardID>;
+
+-- UAT Part 4 - Display all the competitors who have access to a given venue for a match
+SELECT competitor.* 
+FROM matchAccess
+LEFT JOIN team
+	ON (team.ID = matchAccess.team1ID OR team.ID = matchAccess.team2ID)
+LEFT JOIN competitor
+	ON (competitor.teamID = team.ID)
+LEFT JOIN card
+	ON (card.competitorID = competitor.ID)
+WHERE competitor.Authorised = TRUE
+AND card.cardStateID = 1
+AND matchAccess.ID = <matchID>;
+
+-- UAT Part 4 - Display all the venues accessible by a given competitor
+SELECT venue.*
+FROM matchAccess
+LEFT JOIN venue
+	ON (venue.ID = matchAccess.venueID)
+LEFT JOIN team
+	ON (team.ID = matchAccess.team1ID OR team.ID = matchAccess.team2ID)
+LEFT JOIN competitor
+	ON (competitor.teamID = team.ID)
+LEFT JOIN card
+	ON (card.competitorID = competitor.ID)
+WHERE competitor.authorised = TRUE
+AND card.cardStateID = 1
+AND competitor.ID = <competitorID>;
