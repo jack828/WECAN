@@ -24,7 +24,8 @@
   						$action = $actions[$action_unique_id];
   						if (($subject === 'Card' && $row->cardStateID === '1')
   							|| ($subject === 'Competitor' && $row->authorised === 'YES')
-  							|| ($subject === 'Team' && $row->eliminated === 'NO')) {
+  							|| ($subject === 'Team' && $row->eliminated === 'NO')
+  							|| ($subject === 'Authorised Competitors')) {
   				?>
   						<a href="<?php echo $action_url; ?>" class="edit_button btn btn-xs btn-danger" role="button"  onclick="return confirm('Are you sure?')">
   							<span class="fa <?php echo $action->css_class; ?> <?php echo $action_unique_id;?>"></span>

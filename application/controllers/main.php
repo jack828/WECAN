@@ -100,7 +100,11 @@ class Main extends CI_Controller {
                 ->display_as('role', 'Role')
                 ->display_as('teamName', 'Team');
 
-      $matchCrud->unset_operations();
+      $matchCrud->unset_delete();
+      $matchCrud->unset_add();
+      $matchCrud->unset_print();
+      $matchCrud->unset_export();
+      $matchCrud->add_action('Eliminate', '', '', 'fa-minus-circle', array($this, 'eliminate_competitor_url'));
       $matchCrud->unset_columns(array('ID'));
 
       $state_code = 1; // List state
