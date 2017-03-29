@@ -577,6 +577,50 @@ class Main extends CI_Controller {
       $output->js_lib_files = array_merge($accessLogs->js_lib_files, $output->js_lib_files);
       $output->js_config_files = array_merge($accessLogs->js_config_files, $output->js_config_files);
       $output->css_files = array_merge($accessLogs->css_files, $output->css_files);
+
+      // Search by card for authorisation to access a venue for a match
+      $venueCrud = new grocery_CRUD();
+      $venueCrud->set_theme('datatables');
+
+      $venueCrud->set_model('custom_query_model');
+
+      $venueCrud->set_table('venue');
+      $venueCrud->set_subject('Authorised Venues');
+      $venueCrud->columns('ID', 'venueName', 'stadium', 'matchDate');
+
+
+      $sql = "SELECT matchAccess.ID, venue.venueName, venue.stadium, matchAccess.matchDate"
+           . " FROM matchAccess"
+           . " LEFT JOIN venue"
+           . "  ON (venue.ID = matchAccess.venueID)"
+           . " LEFT JOIN team"
+           . "  ON (team.ID = matchAccess.team1ID OR team.ID = matchAccess.team2ID)"
+           . " LEFT JOIN competitor"
+           . "  ON (competitor.teamID = team.ID)"
+           . " LEFT JOIN card"
+           . "  ON (card.competitorID = competitor.ID)"
+           . " WHERE competitor.authorised = TRUE"
+           . "  AND card.cardStateID = 1"
+           . "  AND	card.ID = $cardID;";
+      $venueCrud->basic_model->set_query_str($sql);
+
+      $venueCrud->display_as('venueName', 'Venue')
+                ->display_as('stadium', 'Stadium')
+                ->display_as('matchDate', 'Match Date');
+
+      $venueCrud->unset_operations();
+      $venueCrud->unset_columns(array('ID'));
+
+      $state_code = 1; // List state
+      $venues = $venueCrud->render($state_code);
+
+      // Add the output
+      $output->venues = $venues;
+      // Add access log styling
+      $output->js_files = array_merge($venues->js_files, $output->js_files);
+      $output->js_lib_files = array_merge($venues->js_lib_files, $output->js_lib_files);
+      $output->js_config_files = array_merge($venues->js_config_files, $output->js_config_files);
+      $output->css_files = array_merge($venues->css_files, $output->css_files);
     }
 
     $this->cards_output($output);

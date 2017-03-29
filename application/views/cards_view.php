@@ -30,5 +30,17 @@ foreach($css_files as $file): ?>
       </div>
     </div>
     <?php endif; ?>
+
+    <?php if(isset($venues)): ?>
+    <div class='x_panel'>
+      <div class='x_title'>
+        <h1>Authorised Venues</h1>
+        <div class='clearfix'></div>
+      </div>
+      <div class='x_content'>
+        <?php echo $venues->output; ?>
+      </div>
+    </div>
+    <?php endif; ?>
   </div>
 </div>
