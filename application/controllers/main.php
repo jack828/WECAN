@@ -68,6 +68,53 @@ class Main extends CI_Controller {
           ->display_as('team2ID', 'Team 2');
 
     $output = $crud->render();
+    if ($crud->getState() == 'read') {
+      // Get a list of every competitor authorised for the match
+      $matchID = $crud->getStateInfo()->primary_key;
+      $matchCrud = new grocery_CRUD();
+      $matchCrud->set_theme('datatables');
+
+      $matchCrud->set_model('custom_query_model');
+
+      $matchCrud->set_table('matchAccess');
+      $matchCrud->set_subject('Authorised Competitors');
+      $matchCrud->columns('ID', 'title', 'fullName', 'role', 'teamName');
+
+      $sql = "SELECT matchAccess.ID, competitorTitle.title, competitor.fullName, competitor.role, team.teamName"
+          . " FROM matchAccess"
+          . " LEFT JOIN team"
+          . "  ON (team.ID = matchAccess.team1ID OR team.ID = matchAccess.team2ID)"
+          . " LEFT JOIN competitor"
+          . "  ON (competitor.teamID = team.ID)"
+          . " LEFT JOIN card"
+          . "  ON (card.competitorID = competitor.ID)"
+          . " LEFT JOIN competitorTitle"
+          . "  ON (competitor.titleID = competitorTitle.ID)"
+          . " WHERE competitor.Authorised = TRUE"
+          . "  AND card.cardStateID = 1"
+          . "  AND matchAccess.ID = $matchID;";
+      $matchCrud->basic_model->set_query_str($sql);
+
+      $matchCrud->display_as('title', 'Title')
+                ->display_as('fullName', 'Full Name')
+                ->display_as('role', 'Role')
+                ->display_as('teamName', 'Team');
+
+      $matchCrud->unset_operations();
+      $matchCrud->unset_columns(array('ID'));
+
+      $state_code = 1; // List state
+      $competitors = $matchCrud->render($state_code);
+
+      // Add the output
+      $output->competitors = $competitors;
+      // Add access log styling
+      $output->js_files = array_merge($competitors->js_files, $output->js_files);
+      $output->js_lib_files = array_merge($competitors->js_lib_files, $output->js_lib_files);
+      $output->js_config_files = array_merge($competitors->js_config_files, $output->js_config_files);
+      $output->css_files = array_merge($competitors->css_files, $output->css_files);
+    }
+
     $this->matches_output($output);
     $this->load->view('footer');
   }

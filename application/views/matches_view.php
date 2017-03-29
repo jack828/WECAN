@@ -17,5 +17,17 @@
         <?php echo $output; ?>
       </div>
     </div>
+
+    <?php if(isset($competitors)): ?>
+    <div class='x_panel'>
+      <div class='x_title'>
+        <h1>Competitors</h1>
+        <div class='clearfix'></div>
+      </div>
+      <div class='x_content'>
+        <?php echo $competitors->output; ?>
+      </div>
+    </div>
+    <?php endif; ?>
   </div>
 </div>
