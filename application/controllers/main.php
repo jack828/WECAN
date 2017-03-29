@@ -40,7 +40,7 @@ class Main extends CI_Controller {
     redirect('login', 'refresh');
   }
 
-  public function matches() {
+  public function match() {
     $userData = $this->ensure_logged_in();
     if (!$userData) {
       redirect('login', 'refresh');
@@ -76,7 +76,7 @@ class Main extends CI_Controller {
     $this->load->view('matches_view.php', $output);
   }
 
-  public function teams() {
+  public function team() {
     $userData = $this->ensure_logged_in();
     if (!$userData) {
       redirect('login', 'refresh');
@@ -207,7 +207,7 @@ class Main extends CI_Controller {
     $this->load->view('teams_view.php', $output);
   }
 
-  public function competitors() {
+  public function competitor() {
     $userData = $this->ensure_logged_in();
     if (!$userData) {
       redirect('login', 'refresh');
@@ -401,7 +401,7 @@ class Main extends CI_Controller {
     $this->load->view('competitors_view.php', $output);
   }
 
-  public function venues() {
+  public function venue() {
     $userData = $this->ensure_logged_in();
     if (!$userData) {
       redirect('login', 'refresh');
@@ -466,7 +466,7 @@ class Main extends CI_Controller {
     $this->load->view('venues_view.php', $output);
   }
 
-  public function cards() {
+  public function card() {
     $userData = $this->ensure_logged_in();
     if (!$userData) {
       redirect('login', 'refresh');

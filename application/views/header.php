@@ -63,27 +63,27 @@
                     </a>
                   </li>
                   <li>
-                    <a href='<?php echo site_url('main/matches'); ?>'>
+                    <a href='<?php echo site_url('main/match'); ?>'>
                       <i class='fa fa-fw fa-flag'></i> Matches
                     </a>
                   </li>
                   <li>
-                    <a href='<?php echo site_url('main/teams'); ?>'>
+                    <a href='<?php echo site_url('main/team'); ?>'>
                       <i class='fa fa-fw fa-users'></i> Teams
                     </a>
                   </li>
                   <li>
-                    <a href='<?php echo site_url('main/competitors'); ?>'>
+                    <a href='<?php echo site_url('main/competitor'); ?>'>
                       <i class='fa fa-fw fa-user'></i> Competitors
                     </a>
                   </li>
                   <li>
-                    <a href='<?php echo site_url('main/venues'); ?>'>
+                    <a href='<?php echo site_url('main/venue'); ?>'>
                       <i class='fa fa-fw fa-map-marker'></i> Venues
                     </a>
                   </li>
                   <li>
-                    <a href='<?php echo site_url('main/cards'); ?>'>
+                    <a href='<?php echo site_url('main/card'); ?>'>
                       <i class='fa fa-fw fa-credit-card-alt'></i> Cards
                     </a>
                   </li>
