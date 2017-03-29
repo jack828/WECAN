@@ -590,10 +590,10 @@ class Main extends CI_Controller {
 
       $venueCrud->set_table('venue');
       $venueCrud->set_subject('Authorised Venues');
-      $venueCrud->columns('ID', 'venueName', 'stadium', 'matchDate');
+      $venueCrud->columns('ID', 'matchDate', 'venueName', 'stadium');
 
 
-      $sql = "SELECT matchAccess.ID, venue.venueName, venue.stadium, matchAccess.matchDate"
+      $sql = "SELECT matchAccess.ID, matchAccess.matchDate, venue.venueName, venue.stadium"
            . " FROM matchAccess"
            . " LEFT JOIN venue"
            . "  ON (venue.ID = matchAccess.venueID)"
