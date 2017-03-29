@@ -35,14 +35,14 @@
   				}
   				?>
   				<?php if(!$unset_read){?>
-  					<a href="<?php echo $row->read_url?>" class="edit_button btn btn-xs btn-dark" role="button">
+  					<a href="<?php echo site_url('main/'.strtolower($subject).'s/read/'.$row->ID); ?>" class="edit_button btn btn-xs btn-dark" role="button">
   						<span class="fa fa-eye"></span>
   						&nbsp;<?php echo $this->l('list_view'); ?>
   					</a>
   				<?php }?>
 
   				<?php if(!$unset_edit){?>
-  					<a href="<?php echo $row->edit_url?>" class="edit_button btn btn-xs btn-dark" role="button">
+  					<a href="<?php echo site_url('main/'.strtolower($subject).'s/edit/'.$row->ID); ?>" class="edit_button btn btn-xs btn-dark" role="button">
   						<span class="fa fa-pencil"></span>
   						&nbsp;<?php echo $this->l('list_edit'); ?>
   					</a>

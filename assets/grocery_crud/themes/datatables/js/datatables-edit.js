@@ -33,7 +33,8 @@ $(function () {
               if (data.success) {
                 if (save_and_close) {
                   if ($('#save-and-go-back-button').closest('.ui-dialog').length === 0) {
-                    window.location = data.success_list_url;
+                    // window.location = data.success_list_url;
+                    window.history.back();
                   } else {
                     $(".ui-dialog-content").dialog("close");
                     success_message(data.success_message);
@@ -75,7 +76,8 @@ $(function () {
   if ($('#cancel-button').closest('.ui-dialog').length === 0) {
     $('#cancel-button').click(function () {
       if ($(this).hasClass('back-to-list') || confirm(message_alert_edit_form)) {
-        window.location = list_url;
+        // window.location = list_url;
+        window.history.back();
       }
       return false;
     });

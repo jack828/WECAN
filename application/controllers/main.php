@@ -117,7 +117,7 @@ class Main extends CI_Controller {
       $competitorCrud->set_table('competitor')
                       ->where('teamID', $teamID);
 
-      $competitorCrud->set_subject('Competitors');
+      $competitorCrud->set_subject('Competitor');
       $competitorCrud->columns('titleID', 'fullName', 'role', 'authorised');
       $competitorCrud->field_type('authorised', 'dropdown', array("0"  => "NO", "1" => "YES"));
 
@@ -128,7 +128,11 @@ class Main extends CI_Controller {
                       ->display_as('role', 'Role')
                       ->display_as('authorised', 'Authorised');
 
-      $competitorCrud->unset_operations();
+      $competitorCrud->unset_delete();
+      $competitorCrud->unset_add();
+      $competitorCrud->unset_export();
+      $competitorCrud->unset_print();
+      $competitorCrud->add_action('Eliminate', '', '', 'fa-minus-circle', array($this, 'eliminate_competitor_url'));
 
       $state_code = 1; // List state
       $competitors = $competitorCrud->render($state_code);
@@ -266,7 +270,7 @@ class Main extends CI_Controller {
       $cardCrud->set_table('card')
                 ->where('competitorID', $competitorID);
 
-      $cardCrud->set_subject('Cards');
+      $cardCrud->set_subject('Card');
       $cardCrud->columns('ID', 'startDate', 'endDate', 'cardStateID');
       $cardCrud->fields('ID', 'startDate', 'endDate', 'cardStateID');
 
@@ -277,7 +281,11 @@ class Main extends CI_Controller {
                 ->display_as('endDate', 'End Date')
                 ->display_as('cardStateID', 'Card State');
 
-      $cardCrud->unset_operations();
+      $cardCrud->unset_delete();
+      $cardCrud->unset_add();
+      $cardCrud->unset_edit();
+      $cardCrud->unset_export();
+      $cardCrud->unset_print();
       $cardCrud->add_action('Unauthorise/Lost/Stolen', '', '', 'fa-minus-circle', array($this, 'unauthorise_card_url'));
 
       $state_code = 1; // List state
