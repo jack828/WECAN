@@ -12,7 +12,7 @@ class Reset extends CI_Controller {
     $config['smtp_host'] = 'ssl://smtp.googlemail.com';
     $config['smtp_port'] = 465;
     $config['smtp_user'] = 'wecan.system';
-    $config['smtp_pass'] = 'hR0^%yqBdLrn5Abz';
+    $config['smtp_pass'] = '';
     $config['mailtype'] = 'text';
     $config['charset'] = 'utf-8';
     $config['newline'] = "\r\n";
